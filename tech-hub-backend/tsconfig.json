@@ -1,0 +1,83 @@
+{
+  "compilerOptions": {
+    // Carpeta raíz de los archivos fuente TypeScript
+    "rootDir": "./src",
+
+    // Carpeta de salida para los archivos compilados
+    "outDir": "./dist",
+
+    // Versión de ECMAScript para la salida (ES2020 es compatible con Node.js moderno)
+    "target": "ES2020",
+
+    // Formato de módulos para la salida (CommonJS es estándar en Node.js)
+    "module": "nodenext",
+
+    // Estrategia para resolver módulos (Node.js busca en node_modules)
+    "moduleResolution": "NodeNext",
+
+    // Tipos globales incluidos (añade las APIs de Node.js)
+    // Si usas otras librerías con tipos globales (ej: Jest), agrégalas aquí
+    "types": ["node"],
+
+    // APIs de JavaScript disponibles (ES2020 incluye métodos y objetos modernos)
+    // Puedes actualizar a ES2021/ES2022 si necesitas APIs más recientes
+    "lib": ["es2020"],
+
+    // Activa todas las comprobaciones estrictas de tipos
+    "strict": true,
+
+    // Error si hay variables locales no usadas
+    "noUnusedLocals": true,
+
+    // Error si hay parámetros de función no usados
+    "noUnusedParameters": true,
+
+    // Error si una función no retorna en todos los caminos posibles
+    "noImplicitReturns": true,
+
+    // Error si hay casos sin break en switch
+    "noFallthroughCasesInSwitch": true,
+
+    // Comprobación estricta de acceso a índices en arrays y objetos
+    "noUncheckedIndexedAccess": true,
+
+    // Diferencia entre propiedades opcionales y propiedades que pueden ser undefined
+    "exactOptionalPropertyTypes": true,
+
+    // Genera archivos de declaración (.d.ts) para los tipos
+    "declaration": true,
+
+    // Genera archivos de mapa de fuente para facilitar el debugging
+    "sourceMap": true,
+
+    // Genera mapas para los archivos de declaración (.d.ts)
+    "declarationMap": true,
+
+    // Permite importar módulos CommonJS como si fueran ES Modules
+    "esModuleInterop": true,
+
+    // Permite importar módulos con default aunque no lo tengan realmente
+    "allowSyntheticDefaultImports": true,
+
+    // Permite importar archivos JSON como módulos
+    "resolveJsonModule": true,
+
+    // Omite la comprobación de tipos en archivos de dependencias externas
+    // Útil para acelerar la compilación, pero puede ocultar errores en dependencias
+    "skipLibCheck": true,
+
+    // Permite compilaciones incrementales, acelerando el proceso en proyectos grandes , crea tsconfig.tsbuildinfo para guardar informacion  sobre la compilacion incremental.
+    // permitiendo que futuras compilaciones sean mas rapidas ya que TypeScript solo recompila los archivos que han cambiado, no debemos editar ni preocuparnos por dicho archivo.
+    "incremental": true,
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+
+    "baseUrl": "./src"
+  },
+  // Incluye todos los archivos TypeScript en el directorio src
+  "include": ["src/**/*"],
+  // Excluye carpetas que no deben ser compiladas por TypeScript
+  // Evita errores y mejora el rendimiento de la compilación
+  "exclude": ["node_modules", "dist", "tests"]
+}

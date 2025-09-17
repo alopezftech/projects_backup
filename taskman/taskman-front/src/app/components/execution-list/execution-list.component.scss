@@ -1,0 +1,92 @@
+/* ...existing code... */
+table.full-width-table td, table.full-width-table th {
+  vertical-align: middle !important;
+  text-align: center;
+}
+table.full-width-table td.mat-column-ScriptName, table.full-width-table th.mat-column-ScriptName {
+  text-align: left;
+}
+.scheduled-time-cell {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.scheduled-time-cell.centered {
+  justify-content: center;
+}
+.active-dot {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  margin: 0 auto;
+}
+.active-dot.active {
+  background: #4caf50;
+  border-color: #388e3c;
+}
+.active-dot.inactive {
+  background: #f44336;
+  border-color: #b71c1c;
+}
+.task-name-cell {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.task-name-cell span {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.actions-bar {
+  display: flex;
+  align-items: center;
+  margin-top: 2.5rem;
+}
+.actions-bar button[mat-stroked-button] {
+  height: 56px;
+  min-height: 56px;
+  font-size: 1rem;
+}
+.refresh-button {
+  height: 56px;
+  min-height: 56px;
+  width: 56px;
+  min-width: 56px;
+  font-size: 2.5rem;
+  text-align: center;
+}
+.search-bar {
+  display: flex;
+  align-items: center;
+}
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+.entorno-dot {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #ccc;
+  vertical-align: middle;
+  transition: box-shadow 0.2s;
+}
+.entorno-dot.prod {
+  background: #4caf50;
+  border-color: #388e3c;
+  box-shadow: 0 0 0 2px #4caf5040;
+}
+.entorno-dot.test {
+  background: #ffd600;
+  border-color: #ffb300;
+  box-shadow: 0 0 0 2px #ffd60040;
+}
+.entorno-dot:hover {
+  box-shadow: 0 0 0 4px #60c5cb40;
+}
+/* ...existing code... */

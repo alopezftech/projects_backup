@@ -1,0 +1,25 @@
+<div class="env-editor-container">
+    <div class="env-editor-box">
+        <h2>Producción (.env-scripts)</h2>
+        <h3>Variables de entorno</h3>
+        <div *ngIf="loading">Cargando...</div>
+        <textarea *ngIf="!loading" [(ngModel)]="envContent" rows="16" class="env-textarea"></textarea>
+        <div style="margin-top: 1rem; display: flex; justify-content: space-between; gap: 1rem;">
+            <button mat-raised-button color="warn" (click)="restoreEnvBackup()" [disabled]="restoring || loading || saving">
+                Restaurar backup
+            </button>
+            <button mat-raised-button color="primary" (click)="saveEnv()"
+                [disabled]="saving || loading">Guardar</button>
+        </div>
+    </div>
+    <div class="env-editor-box">
+        <h2>Test (.env-scripts-test)</h2>
+        <h3>Variables de entorno</h3>
+        <div *ngIf="loadingTest">Cargando...</div>
+        <textarea *ngIf="!loadingTest" [(ngModel)]="envContentTest" rows="16" class="env-textarea"></textarea>
+        <div style="margin-top: 1rem;">
+            <button mat-raised-button color="primary" (click)="saveEnvTest()"
+                [disabled]="savingTest || loadingTest">Guardar</button>
+        </div>
+    </div>
+</div>

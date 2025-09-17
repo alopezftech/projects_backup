@@ -1,0 +1,119 @@
+<div class="actions-bar" style="margin-bottom: 1rem; display: flex; gap: 1rem; align-items: center; justify-content: space-between;">
+  <div style="display: flex; gap: 1rem; align-items: center;">
+    <button mat-stroked-button color="accent" (click)="openCreateTaskDialog()">
+      Crear nueva tarea
+    </button>
+    <button mat-stroked-button color="warn" (click)="openUploadPythonDialog()">
+      Subir Python
+    </button>
+    <div class="search-bar" style="display: flex; align-items: center; gap: 0.5rem; margin-left: 1.5rem;">
+      <mat-form-field appearance="outline" style="min-width: 160px;">
+        <mat-label>Columna</mat-label>
+        <mat-select [(ngModel)]="filterColumn" (selectionChange)="applyColumnFilter()">
+          <mat-option *ngFor="let col of columnOptions" [value]="col.value">{{col.label}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline" style="flex: 1; min-width: 200px;">
+        <mat-label>Buscar</mat-label>
+        <input matInput [(ngModel)]="filterValue" (input)="applyColumnFilter()" placeholder="Buscar..." />
+      </mat-form-field>
+    </div>
+  </div>
+  <button mat-icon-button color="primary" (click)="loadData()" matTooltip="Actualizar tabla" class="refresh-button">
+    <mat-icon class="refresh-button">refresh</mat-icon>
+  </button>
+  <button mat-icon-button color="primary" (click)="openEnvEditor()" matTooltip="Editar variables de entorno">
+    <mat-icon>settings</mat-icon>
+  </button>
+</div>
+<div class="empty-state">
+  <p *ngIf="tasks && tasks.length === 0">No existen tareas registradas.</p>
+</div>
+<div *ngIf="tasks && tasks.length > 0" class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort class="full-width-table">
+    <ng-container matColumnDef="Active">
+      <th mat-header-cell *matHeaderCellDef> Tarea Activa </th>
+      <td mat-cell *matCellDef="let task">
+        <span class="active-dot" [ngClass]="{'active': task.Active, 'inactive': !task.Active}" (click)="toggleActive(task)"></span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Entorno">
+      <th mat-header-cell *matHeaderCellDef> Entorno </th>
+      <td mat-cell *matCellDef="let task">
+        <span class="entorno-dot" 
+              [ngClass]="{'prod': task.Entorno === 'Prod', 'test': task.Entorno === 'Test'}"
+              (click)="onChangeEntorno(task)"
+              matTooltip="Click para cambiar a {{task.Entorno === 'Prod' ? 'Test' : 'Prod'}}">
+        </span>
+        <span style="margin-left: 8px;">{{task.Entorno}}</span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Name">
+      <th mat-header-cell *matHeaderCellDef> Nombre </th>
+      <td mat-cell *matCellDef="let task">
+        <div class="task-name-cell">
+          <button mat-icon-button (click)="openEditNameDialog(task)" matTooltip="Editar nombre">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <span>{{task.Name}}</span>
+        </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="ScriptName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Script </th>
+      <td mat-cell *matCellDef="let task">{{task.ScriptName}}</td>
+    </ng-container>
+    <ng-container matColumnDef="ScheduledTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Hora programada </th>
+      <td mat-cell *matCellDef="let task">
+        <div class="scheduled-time-cell" [ngClass]="{'centered': !task.Active}">
+          <button mat-icon-button (click)="editTime(task)" *ngIf="task.Active">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <span>{{task.ScheduledTime}}</span>
+        </div>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Último estado </th>
+      <td mat-cell *matCellDef="let task">
+        <mat-icon [color]="task.Status === 'success' ? 'primary' : task.Status === 'error' ? 'warn' : ''">
+          {{getStatusIcon(task.Status)}}
+        </mat-icon>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="ExecutionTime">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Última ejecución </th>
+      <td mat-cell *matCellDef="let task">
+        {{ task.ExecutionTime ? (task.ExecutionTime | date:'dd/MM/yyyy HH:mm') : '-' }}
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Run">
+      <th mat-header-cell *matHeaderCellDef> Ejecutar </th>
+      <td mat-cell *matCellDef="let task">
+        <button mat-icon-button (click)="relaunch(task.Id)" matTooltip="Ejecutar tarea" [disabled]="!task.Active">
+          <mat-icon *ngIf="task.Status !== 'error'">play_arrow</mat-icon>
+          <mat-icon *ngIf="task.Status === 'error'">refresh</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="Actions">
+      <th mat-header-cell *matHeaderCellDef> Logs </th>
+      <td mat-cell *matCellDef="let task">
+        <button mat-icon-button *ngIf="task.Status && task.Status !== 'pending'" (click)="openLog(task.Log)">
+          <mat-icon>description</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="['Active','Entorno','Name','ScriptName','ScheduledTime','Status','ExecutionTime','Run','Actions']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['Active','Entorno','Name','ScriptName','ScheduledTime','Status','ExecutionTime','Run','Actions'];"></tr>
+  </table>
+</div>
+<div *ngIf="showOverwriteDialog" style="margin-bottom: 1rem; border: 1px solid #ccc; padding: 1rem; border-radius: 8px; background: #f9f9f9;">
+  <h3>Sobreescribir archivo Python</h3>
+  <input type="file" accept=".py" (change)="onOverwriteFileSelected($event)" />
+  <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+    <button mat-button (click)="closeOverwriteDialog()">Cancelar</button>
+    <button mat-raised-button color="warn" (click)="confirmOverwrite()" [disabled]="!overwriteFile">Sobreescribir</button>
+  </div>
+</div>

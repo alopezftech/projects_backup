@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "date": "2025-08-25",
+    "weather": "sunny",
+    "visibility": "good",
+    "cost": 20,
+    "comment": "Great day for a walk."
+  },
+  {
+    "id": 2,
+    "date": "2025-08-24",
+    "weather": "rainy",
+    "visibility": "poor",
+    "cost": 15,
+    "comment": "Stayed inside and read a book."
+  },
+  {
+    "id": 3,
+    "date": "2025-08-23",
+    "weather": "cloudy",
+    "visibility": "average",
+    "cost": 10,
+    "comment": "Went to the movies."
+  }
+]

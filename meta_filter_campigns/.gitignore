@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.egg
+*.eggs
+*.manifest
+*.spec
+*.log
+*.sqlite3
+*.db
+*.dat
+*.tmp
+*.bak
+*.swp
+*.swo
+*.ipynb_checkpoints
+
+# Jupyter Notebooks
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Environments
+.venv/
+venv/
+ENV/
+.env
+.env.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Excel/CSV outputs
+*.xlsx
+*.csv
+
+# Credentials
+credentials.json
+
+# Others
+*.~*
+
+# Build/Distribution folders
+dist/
+build/

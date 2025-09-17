@@ -1,0 +1,24 @@
+<h2 mat-dialog-title>Crear nueva tarea</h2>
+<div mat-dialog-content>
+  <form>
+    <mat-form-field appearance="fill" style="width:100%">
+      <mat-label>Nombre de la tarea</mat-label>
+      <input matInput [(ngModel)]="taskName" name="taskName" required />
+    </mat-form-field>
+    <mat-form-field appearance="fill" style="width:100%">
+      <mat-label>Hora programada</mat-label>
+      <input matInput type="time" [(ngModel)]="scheduledTime" name="scheduledTime" required />
+    </mat-form-field>
+    <div style="margin: 8px 0;">Selecciona un script existente:</div>
+    <mat-form-field appearance="fill" style="width:100%">
+      <mat-label>Script existente</mat-label>
+      <mat-select [(ngModel)]="selectedScript" name="selectedScript">
+        <mat-option *ngFor="let script of existingScripts" [value]="script">{{script}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="cancel()">Cancelar</button>
+  <button mat-raised-button color="primary" (click)="create()" [disabled]="!taskName || !selectedScript || !scheduledTime">Crear tarea</button>
+</div>

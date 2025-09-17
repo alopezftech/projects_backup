@@ -1,0 +1,87 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+testFiles
+prd.md
+# --- FRONTEND IGNORE ---
+# Compiled output
+/taskman-front/dist
+/taskman-front/tmp
+/taskman-front/out-tsc
+/taskman-front/bazel-out
+
+# Node
+/taskman-front/node_modules
+/taskman-front/npm-debug.log
+/taskman-front/yarn-error.log
+
+# IDEs and editors
+/taskman-front/.idea/
+/taskman-front/.project
+/taskman-front/.classpath
+/taskman-front/.c9/
+/taskman-front/*.launch
+/taskman-front/.settings/
+/taskman-front/*.sublime-workspace
+
+# Visual Studio Code
+/taskman-front/.vscode/*
+!/taskman-front/.vscode/settings.json
+!/taskman-front/.vscode/tasks.json
+!/taskman-front/.vscode/launch.json
+!/taskman-front/.vscode/extensions.json
+/taskman-front/.history/*
+
+# Miscellaneous
+/taskman-front/.angular/cache
+/taskman-front/.sass-cache/
+/taskman-front/connect.lock
+/taskman-front/coverage
+/taskman-front/libpeerconnection.log
+/taskman-front/testem.log
+/taskman-front/typings
+
+# System files
+/taskman-front/.DS_Store
+/taskman-front/Thumbs.db
+
+# --- BACKEND IGNORE ---
+# Compiled output
+/taskman-back/dist
+/taskman-back/tmp
+/taskman-back/out-tsc
+/taskman-back/bazel-out
+
+# Node
+/taskman-back/node_modules
+/taskman-back/npm-debug.log
+/taskman-back/yarn-error.log
+
+# IDEs and editors
+/taskman-back/.idea/
+/taskman-back/.project
+/taskman-back/.classpath
+/taskman-back/.c9/
+/taskman-back/*.launch
+/taskman-back/.settings/
+/taskman-back/*.sublime-workspace
+
+# Visual Studio Code
+/taskman-back/.vscode/*
+!/taskman-back/.vscode/settings.json
+!/taskman-back/.vscode/tasks.json
+!/taskman-back/.vscode/launch.json
+!/taskman-back/.vscode/extensions.json
+/taskman-back/.history/*
+
+# Miscellaneous
+/taskman-back/.angular/cache
+/taskman-back/.sass-cache/
+/taskman-back/connect.lock
+/taskman-back/coverage
+/taskman-back/libpeerconnection.log
+/taskman-back/testem.log
+/taskman-back/typings
+
+# System files
+/taskman-back/.DS_Store
+/taskman-back/Thumbs.db
