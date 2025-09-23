@@ -1,0 +1,33 @@
+# Build outputs
+dist/
+.angular/
+coverage/
+
+# Dependencies
+node_modules/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Config files that should not be formatted
+package-lock.json
+*.min.js
+*.min.css
+
+# Generated files
+src/environments/environment.prod.ts

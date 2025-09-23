@@ -1,0 +1,142 @@
+/*
+ * APP COMPONENT STYLES
+ * 
+ * Estilos específicos del componente raíz de la aplicación.
+ * 
+ * RESPONSABILIDADES:
+ * - Layout principal de la aplicación
+ * - Estilos del router-outlet
+ * - Loading states globales
+ * - Tema y variables CSS custom properties
+ * 
+ * NOTA: Los estilos globales están en styles.scss
+ */
+
+@use "../styles/variables" as *;
+@use "../styles/mixins" as *;
+
+// ================================
+// 🏗️ LAYOUT PRINCIPAL
+// ================================
+
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+// Router outlet container
+.app-container {
+  // Usar mixin centralizado
+  @include container;
+
+  // Propiedades específicas del app (nueva especificación Sass)
+  & {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.main-content {
+  flex: 1;
+  padding: $spacing-lg 0;
+
+  @include mobile-only {
+    padding: $spacing-md 0;
+  }
+}
+
+// ================================
+// 🎨 THEME VARIABLES CSS CUSTOM PROPERTIES
+// ================================
+
+:root {
+  // Exponer variables SCSS como CSS custom properties para uso dinámico
+  --primary-color: #{$primary-color};
+  --primary-dark: #{$primary-dark};
+  --text-color: #{$text-color};
+  --text-secondary: #{$text-secondary};
+  --background-primary: #{$background-primary};
+  --background-secondary: #{$background-secondary};
+  --border-radius: #{$border-radius};
+  --spacing-md: #{$spacing-md};
+  --spacing-lg: #{$spacing-lg};
+  --transition-normal: #{$transition-normal};
+}
+
+// ================================
+// 🔄 LOADING STATES GLOBALES
+// ================================
+
+.app-loading {
+  @include flex-center;
+  min-height: 50vh;
+  flex-direction: column;
+  gap: $spacing-md;
+
+  .loading-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid $border-light;
+    border-top-color: $primary-color;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  .loading-text {
+    color: $text-muted;
+    font-size: $font-size-sm;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// ================================
+// 📱 RESPONSIVE ADJUSTMENTS
+// ================================
+
+@include mobile-only {
+  .app-container {
+    padding-left: $spacing-sm;
+    padding-right: $spacing-sm;
+  }
+}
+
+// ================================
+// 🌙 DARK MODE SUPPORT (preparado para futuro)
+// ================================
+
+// @media (prefers-color-scheme: dark) {
+//   :root {
+//     // Variables para modo oscuro (implementar en el futuro)
+//     // --primary-color: #{$primary-light};
+//     // --text-color: #{$text-white};
+//     // --background-primary: #{$background-dark};
+//   }
+// }
+
+// ================================
+// ♿ ACCESIBILIDAD
+// ================================
+
+// Reducir animaciones si el usuario lo prefiere
+@include reduced-motion {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+// Alto contraste
+@include high-contrast-mode {
+  .app-container {
+    border: 2px solid;
+  }
+}

@@ -1,0 +1,364 @@
+/*
+ * ESTILOS GLOBALES - Base de la aplicación
+ * 
+ * Reset CSS moderno, estilos base de elementos HTML y clases utilitarias.
+ * Se aplicará a toda la aplicación desde styles.scss
+ * 
+ * CONTENIDO:
+ * 1. Reset CSS moderno (inspirado en Tailwind CSS y modern-normalize)
+ * 2. Estilos base para elementos HTML
+ * 3. Clases utilitarias comunes
+ * 4. Keyframes de animaciones globales
+ */
+
+@use "variables" as *;
+@use "mixins" as *;
+
+// ================================
+// 🔄 MODERN CSS RESET
+// ================================
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  // Mejorar renderizado de fuentes
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  height: 100%;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  line-height: $line-height-normal;
+  color: $text-color;
+  background-color: $background-primary;
+
+  // Mejorar performance de scroll
+  scroll-behavior: smooth;
+
+  @include reduced-motion {
+    scroll-behavior: auto;
+  }
+}
+
+// Mejorar accesibilidad del foco
+:focus-visible {
+  @include focus-outline;
+}
+
+// ================================
+// 📝 ELEMENTOS HTML BASE
+// ================================
+
+// Headings
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: $font-weight-semibold;
+  line-height: $line-height-tight;
+  color: $text-color;
+}
+
+h1 {
+  @include heading-1;
+}
+h2 {
+  @include heading-2;
+}
+h3 {
+  @include heading-3;
+}
+
+h4 {
+  font-size: $font-size-xl;
+  margin-bottom: $spacing-sm;
+}
+
+h5 {
+  font-size: $font-size-lg;
+  margin-bottom: $spacing-sm;
+}
+
+h6 {
+  font-size: $font-size-base;
+  margin-bottom: $spacing-xs;
+}
+
+// Párrafos y texto
+p {
+  margin-bottom: $spacing-md;
+  line-height: $line-height-relaxed;
+  color: $text-secondary;
+}
+
+// Enlaces
+a {
+  color: $primary-color;
+  text-decoration: none;
+  transition: color $transition-normal $easing-ease-out;
+
+  &:hover {
+    color: $primary-dark;
+    text-decoration: underline;
+  }
+
+  @include focus-outline;
+}
+
+// Listas
+ul,
+ol {
+  margin-bottom: $spacing-md;
+  padding-left: $spacing-lg;
+}
+
+li {
+  margin-bottom: $spacing-xs;
+  line-height: $line-height-relaxed;
+}
+
+// Botones
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+
+  @include focus-outline;
+}
+
+// Inputs y formularios
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+
+  @include focus-outline;
+}
+
+// Imágenes
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+// Código
+code {
+  font-family: $font-family-monospace;
+  font-size: 0.875em;
+  background-color: $background-light;
+  padding: 0.125rem 0.25rem;
+  border-radius: $border-radius-sm;
+  color: $text-color;
+}
+
+pre {
+  font-family: $font-family-monospace;
+  background-color: $background-light;
+  padding: $spacing-md;
+  border-radius: $border-radius;
+  overflow-x: auto;
+  margin-bottom: $spacing-md;
+}
+
+// ================================
+// 🎯 CLASES UTILITARIAS
+// ================================
+
+// Visibility
+.sr-only {
+  @include sr-only;
+}
+
+.print-hide {
+  @include print-hide;
+}
+
+// Layout
+.container {
+  @include container;
+}
+
+.flex-center {
+  @include flex-center;
+}
+
+.flex-between {
+  @include flex-between;
+}
+
+// Spacing
+.mt-0 {
+  margin-top: 0;
+}
+.mt-1 {
+  margin-top: $spacing-xs;
+}
+.mt-2 {
+  margin-top: $spacing-sm;
+}
+.mt-3 {
+  margin-top: $spacing-md;
+}
+.mt-4 {
+  margin-top: $spacing-lg;
+}
+.mt-5 {
+  margin-top: $spacing-xl;
+}
+
+.mb-0 {
+  margin-bottom: 0;
+}
+.mb-1 {
+  margin-bottom: $spacing-xs;
+}
+.mb-2 {
+  margin-bottom: $spacing-sm;
+}
+.mb-3 {
+  margin-bottom: $spacing-md;
+}
+.mb-4 {
+  margin-bottom: $spacing-lg;
+}
+.mb-5 {
+  margin-bottom: $spacing-xl;
+}
+
+// Text utilities
+.text-center {
+  text-align: center;
+}
+.text-left {
+  text-align: left;
+}
+.text-right {
+  text-align: right;
+}
+
+.text-primary {
+  color: $primary-color;
+}
+.text-secondary {
+  color: $text-secondary;
+}
+.text-muted {
+  color: $text-muted;
+}
+
+.text-truncate {
+  @include text-truncate;
+}
+
+// Display
+.d-none {
+  display: none;
+}
+.d-block {
+  display: block;
+}
+.d-flex {
+  display: flex;
+}
+.d-grid {
+  display: grid;
+}
+
+// ================================
+// 🌟 ANIMACIONES GLOBALES
+// ================================
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+// ================================
+// 📱 RESPONSIVE UTILITIES
+// ================================
+
+@include mobile-only {
+  .mobile-hide {
+    display: none;
+  }
+  .mobile-center {
+    text-align: center;
+  }
+}
+
+@include tablet-up {
+  .tablet-hide {
+    display: none;
+  }
+}
+
+@include desktop-up {
+  .desktop-hide {
+    display: none;
+  }
+}
