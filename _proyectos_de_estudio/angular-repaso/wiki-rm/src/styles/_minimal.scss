@@ -1,0 +1,166 @@
+/*
+ * MINIMAL SCSS ARCHITECTURE - Para proyectos pequeños/medianos
+ * 
+ * Versión simplificada que mantiene los beneficios sin la complejidad excesiva.
+ * Perfecto para proyectos que están empezando pero quieren escalabilidad.
+ * 
+ * FILOSOFÍA:
+ * - Start simple, scale smart
+ * - Only what you actually use
+ * - Easy to extend when needed
+ */
+
+// ================================
+// 🎨 ESSENTIAL DESIGN TOKENS
+// ================================
+
+// Colors (solo las esenciales)
+$primary: #667eea;
+$primary-dark: #5a67d8;
+$text: #2d3748;
+$text-light: #4a5568;
+$bg: #ffffff;
+$bg-light: #f7fafc;
+$border: #e2e8f0;
+
+// Typography (básico)
+$font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+$font-size-sm: 0.875rem;
+$font-size-base: 1rem;
+$font-size-lg: 1.125rem;
+$font-size-xl: 1.25rem;
+$font-size-2xl: 1.5rem;
+$font-size-3xl: 1.875rem;
+
+// Spacing (8px system)
+$space-1: 0.25rem; // 4px
+$space-2: 0.5rem; // 8px
+$space-3: 0.75rem; // 12px
+$space-4: 1rem; // 16px
+$space-6: 1.5rem; // 24px
+$space-8: 2rem; // 32px
+
+// Border & Effects
+$radius: 0.5rem;
+$shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+
+// ================================
+// 🛠️ ESSENTIAL MIXINS
+// ================================
+
+@mixin container($max: 1200px) {
+  max-width: $max;
+  margin: 0 auto;
+  padding: 0 $space-4;
+}
+
+@mixin mobile {
+  @media (max-width: 768px) {
+    @content;
+  }
+}
+
+@mixin card {
+  background: $bg;
+  border-radius: $radius;
+  box-shadow: $shadow;
+  padding: $space-6;
+}
+
+@mixin btn-primary {
+  background: linear-gradient(135deg, $primary 0%, #764ba2 100%);
+  color: white;
+  padding: $space-3 $space-6;
+  border-radius: $radius;
+  border: none;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+}
+
+// ================================
+// 🔄 MINIMAL RESET
+// ================================
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-family;
+  font-size: $font-size-base;
+  line-height: 1.6;
+  color: $text;
+  background: $bg;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: $space-4;
+}
+
+h1 {
+  font-size: $font-size-3xl;
+}
+h2 {
+  font-size: $font-size-2xl;
+}
+h3 {
+  font-size: $font-size-xl;
+}
+
+p {
+  margin-bottom: $space-4;
+  color: $text-light;
+}
+
+a {
+  color: $primary;
+  text-decoration: none;
+
+  &:hover {
+    color: $primary-dark;
+  }
+}
+
+// ================================
+// 🎯 UTILITY CLASSES
+// ================================
+
+.container {
+  @include container;
+}
+.card {
+  @include card;
+}
+.btn-primary {
+  @include btn-primary;
+}
+
+.text-center {
+  text-align: center;
+}
+.mb-4 {
+  margin-bottom: $space-4;
+}
+.mb-6 {
+  margin-bottom: $space-6;
+}
+.mb-8 {
+  margin-bottom: $space-8;
+}
+
+@include mobile {
+  .mobile-center {
+    text-align: center;
+  }
+}

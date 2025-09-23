@@ -1,0 +1,45 @@
+/*
+ * STYLES.SCSS - Hub Design System Global Entry Point
+ * 
+ * ARQUITECTURA PARA HUB DE MICROFRONTENDS
+ * 
+ * Este archivo es el punto de entrada del design system que alimentará:
+ * - Hub principal de aplicaciones
+ * - Microfrontends independientes
+ * - Aplicaciones Electron multiplataforma
+ * - Librerías de componentes compartidos
+ * 
+ * DISEÑO ENTERPRISE:
+ * ├── Design Tokens (_variables.scss)    → Shared across all microfrontends
+ * ├── Utility Mixins (_mixins.scss)      → Reusable functions & helpers
+ * ├── Global Styles (_globals.scss)      → Base reset & foundation
+ * └── Index Orchestrator (_index.scss)   → Centralized import management
+ * 
+ * BENEFICIOS PARA MICROFRONTENDS:
+ * ✅ Consistencia visual entre aplicaciones
+ * ✅ Mantenimiento centralizado del design system
+ * ✅ Versionado independiente de tokens
+ * ✅ Tree-shaking automático (performance)
+ * ✅ Cross-platform compatibility (Web + Electron)
+ * ✅ Hot-reload del design system en desarrollo
+ * 
+ * ESCALABILIDAD:
+ * - Soporta 50+ microfrontends
+ * - Equipos distribuidos
+ * - CI/CD independiente por aplicación
+ * - Design system como dependency externa
+ * 
+ * USO EN MICROFRONTENDS:
+ * npm install @your-org/design-system
+ * @use '@your-org/design-system/tokens' as *;
+ * 
+ * PRINCIPIOS ARQUITECTURALES:
+ * - Mobile-first responsive design
+ * - Accessibility (a11y) by default
+ * - Performance-optimized (< 5KB gzipped)
+ * - Platform-agnostic design tokens
+ * - Atomic design methodology ready
+ */
+
+// Importar todos los estilos globales usando sintaxis moderna
+@use "styles/index";

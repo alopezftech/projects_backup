@@ -1,0 +1,39 @@
+/*
+ * MAIN STYLES INDEX - Hub Design System Entry Point
+ * 
+ * ARQUITECTURA PARA MICROFRONTENDS Y HUB DE APLICACIONES
+ * 
+ * Este archivo centraliza el design system que será compartido entre:
+ * - Múltiples microfrontends del hub
+ * - Aplicaciones web Angular
+ * - Aplicaciones Electron de escritorio
+ * - Componentes reutilizables multiplataforma
+ * 
+ * ESCALABILIDAD ENTERPRISE:
+ * ✅ Preparado para 50+ microfrontends
+ * ✅ Design tokens compartidos entre aplicaciones
+ * ✅ Consistencia visual multiplataforma
+ * ✅ Mantenimiento centralizado del design system
+ * ✅ Versionado independiente de tokens
+ * 
+ * USO EN MICROFRONTENDS:
+ * @use '@hub/design-system/variables' as *;
+ * @use '@hub/design-system/mixins' as *;
+ * 
+ * ORDEN DE IMPORTACIÓN (CRÍTICO PARA PERFORMANCE):
+ * 1. Variables (design tokens) - Base del sistema
+ * 2. Mixins (funciones y utilidades) - Herramientas reutilizables
+ * 3. Globals (reset, base styles) - Fundación común
+ * 
+ * NOTA: Usando @use en lugar de @import (nueva sintaxis Sass 2025)
+ * Compatible con Sass Modules y tree-shaking automático
+ */
+
+// 1. Variables y design tokens (PRIMERO)
+@use "variables";
+
+// 2. Mixins y funciones (SEGUNDO) - con forward para reexportar variables
+@use "mixins";
+
+// 3. Estilos globales, reset y utilidades (TERCERO)
+@use "globals";
