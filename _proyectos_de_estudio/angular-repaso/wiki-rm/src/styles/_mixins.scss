@@ -26,21 +26,27 @@
   padding-right: $spacing-md;
 
   @media (max-width: $breakpoint-md) {
-    padding-left: $spacing-sm;
-    padding-right: $spacing-sm;
+    & {
+      padding-left: $spacing-sm;
+      padding-right: $spacing-sm;
+    }
   }
 }
 
 @mixin flex-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  & {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 }
 
 @mixin flex-between {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  & {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 @mixin grid-auto-fit($min-width: 250px, $gap: $spacing-lg) {
@@ -95,6 +101,8 @@
 // ================================
 
 @mixin card-shadow($level: "default") {
+  transition: box-shadow $transition-normal $easing-ease-out;
+
   @if $level == "none" {
     box-shadow: $shadow-none;
   } @else if $level == "sm" {
@@ -108,8 +116,6 @@
   } @else if $level == "xl" {
     box-shadow: $shadow-xl;
   }
-
-  transition: box-shadow $transition-normal $easing-ease-out;
 }
 
 @mixin hover-lift($translate: -2px, $shadow: $shadow-lg) {
@@ -179,8 +185,9 @@
 }
 
 @mixin heading-1 {
-  @include heading-base;
   font-size: $font-size-4xl;
+
+  @include heading-base;
 
   @include mobile-only {
     font-size: $font-size-3xl;
@@ -188,8 +195,9 @@
 }
 
 @mixin heading-2 {
-  @include heading-base;
   font-size: $font-size-3xl;
+
+  @include heading-base;
 
   @include mobile-only {
     font-size: $font-size-2xl;
@@ -197,8 +205,9 @@
 }
 
 @mixin heading-3 {
-  @include heading-base;
   font-size: $font-size-2xl;
+
+  @include heading-base;
 
   @include mobile-only {
     font-size: $font-size-xl;

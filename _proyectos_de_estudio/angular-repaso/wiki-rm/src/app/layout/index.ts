@@ -67,11 +67,5 @@
  * - Como wrapper de features
  */
 
-// TODO: Aquí se exportarán los componentes de layout cuando se creen
-// export { MainLayoutComponent } from './main-layout/main-layout.component';
-// export { HeaderComponent } from './header/header.component';
-// export { SidebarComponent } from './sidebar/sidebar.component';
-// export { FooterComponent } from './footer/footer.component';
-
-// Por ahora, exportamos un placeholder
-export const LAYOUT_INDEX = 'Layout components will be exported here';
+// Exportamos los componentes de layout disponibles
+export { HeaderComponent } from './header/header.component';

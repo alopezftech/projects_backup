@@ -1,0 +1,110 @@
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/mixins" as *;
+
+.mobile-menu {
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, $rm-darker 0%, $rm-light-blue 100%);
+  z-index: $z-index-modal;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: $spacing-4xl;
+  animation: fadeIn 0.3s $easing-ease-out;
+  @include print-hide;
+}
+
+.mobile-menu-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: $spacing-4xl;
+}
+
+.mobile-menu-header .brand-icon {
+  font-size: $font-size-4xl;
+  filter: drop-shadow(0 0 8px rgba($rm-primary, 0.6));
+  margin-bottom: $spacing-md;
+}
+
+.mobile-menu-header .brand-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-xs;
+}
+
+.mobile-menu-header .brand-title {
+  font-size: $font-size-2xl;
+  font-weight: $font-weight-bold;
+  margin: 0;
+  color: $rm-primary;
+  text-shadow: 0 0 10px rgba($rm-primary, 0.5);
+  font-family: $font-family-primary;
+}
+
+.mobile-menu-header .brand-subtitle {
+  font-size: $font-size-sm;
+  color: $text-light;
+  font-weight: $font-weight-medium;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.mobile-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 $spacing-4xl 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-3xl;
+}
+
+.mobile-nav-link {
+  color: $rm-primary;
+  font-size: $font-size-2xl;
+  text-decoration: none;
+  font-weight: $font-weight-bold;
+  padding: $spacing-lg $spacing-2xl;
+  border-radius: $border-radius-lg;
+  background: rgba($rm-secondary, 0.08);
+  transition: background $transition-normal $easing-ease-out;
+  @include focus-outline($rm-primary);
+}
+
+.mobile-nav-link:hover {
+  background: rgba($rm-primary, 0.2);
+  color: $rm-secondary;
+}
+
+.mobile-menu-close {
+  background: none;
+  border: none;
+  color: $rm-secondary;
+  font-size: $font-size-3xl;
+  cursor: pointer;
+  position: absolute;
+  top: $spacing-2xl;
+  right: $spacing-2xl;
+  padding: $spacing-sm;
+  border-radius: 50%;
+  transition: background $transition-normal $easing-ease-out;
+  @include focus-outline($rm-primary);
+}
+
+.mobile-menu-close:hover {
+  background: rgba($rm-primary, 0.1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

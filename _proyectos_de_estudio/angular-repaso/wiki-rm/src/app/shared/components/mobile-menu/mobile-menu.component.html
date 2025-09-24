@@ -1,0 +1,25 @@
+@if (open) {
+  <nav class="mobile-menu" role="navigation" aria-label="Menú móvil">
+    <div class="mobile-menu-header">
+      <div class="brand-icon">🛸</div>
+      <div class="brand-text">
+        <h1 class="brand-title">Rick & Morty</h1>
+        <span class="brand-subtitle">Wiki</span>
+      </div>
+    </div>
+    <ul class="mobile-nav-list">
+      @for (link of links; track link.path) {
+        <li class="mobile-nav-item">
+          <a
+            [routerLink]="link.path"
+            (click)="onCloseMenu()"
+            class="mobile-nav-link"
+            [attr.aria-label]="link.description">
+            {{ link.label }}
+          </a>
+        </li>
+      }
+    </ul>
+    <button class="mobile-menu-close" (click)="onCloseMenu()" aria-label="Cerrar menú móvil">✕</button>
+  </nav>
+}

@@ -1,67 +1,61 @@
-/*
- * APP COMPONENT STYLES
- * 
- * Estilos específicos del componente raíz de la aplicación.
- * 
- * RESPONSABILIDADES:
- * - Layout principal de la aplicación
- * - Estilos del router-outlet
- * - Loading states globales
- * - Tema y variables CSS custom properties
- * 
- * NOTA: Los estilos globales están en styles.scss
- */
+// APP COMPONENT STYLES - Rick & Morty Wiki
+// Usando variables centralizadas y mixins del proyecto
 
 @use "../styles/variables" as *;
 @use "../styles/mixins" as *;
 
 // ================================
-// 🏗️ LAYOUT PRINCIPAL
+// � VARIABLES TEMÁTICAS ESPECÍFICAS
+// ================================
+
+// Extender las variables base con tema Rick & Morty
+$rm-primary: #00d4aa;
+$rm-secondary: #64ffda;
+$rm-dark: #1a1a2e;
+$rm-darker: #0f0f23;
+
+// ================================
+// �🏗️ LAYOUT PRINCIPAL
 // ================================
 
 :host {
   display: block;
   min-height: 100vh;
-}
-
-// Router outlet container
-.app-container {
-  // Usar mixin centralizado
-  @include container;
-
-  // Propiedades específicas del app (nueva especificación Sass)
-  & {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+  background: linear-gradient(135deg, #0a0a0a 0%, $rm-dark 100%);
 }
 
 .main-content {
-  flex: 1;
-  padding: $spacing-lg 0;
+  min-height: calc(100vh - 70px); // Altura total menos header
+  overflow-x: hidden;
 
-  @include mobile-only {
-    padding: $spacing-md 0;
+  // Asegurar que el router-outlet ocupe todo el espacio
+  ::ng-deep router-outlet + * {
+    display: block;
+    width: 100%;
   }
 }
 
 // ================================
-// 🎨 THEME VARIABLES CSS CUSTOM PROPERTIES
+// 🎨 VARIABLES CSS CUSTOM PROPERTIES
 // ================================
 
 :root {
-  // Exponer variables SCSS como CSS custom properties para uso dinámico
-  --primary-color: #{$primary-color};
-  --primary-dark: #{$primary-dark};
-  --text-color: #{$text-color};
-  --text-secondary: #{$text-secondary};
-  --background-primary: #{$background-primary};
-  --background-secondary: #{$background-secondary};
-  --border-radius: #{$border-radius};
-  --spacing-md: #{$spacing-md};
-  --spacing-lg: #{$spacing-lg};
-  --transition-normal: #{$transition-normal};
+  // Exponer variables SCSS como CSS custom properties
+  --rm-primary-green: #{$rm-primary};
+  --rm-secondary-cyan: #{$rm-secondary};
+  --rm-dark-blue: #{$rm-darker};
+  --rm-medium-blue: #{$rm-dark};
+  --rm-text-light: #{$text-light};
+  --rm-text-white: #{$text-white};
+
+  // Espaciado usando variables centralizadas
+  --rm-spacing-sm: #{$spacing-sm};
+  --rm-spacing-md: #{$spacing-md};
+  --rm-spacing-lg: #{$spacing-lg};
+  --rm-spacing-xl: #{$spacing-xl};
+
+  // Transiciones usando variables centralizadas
+  --rm-transition: all #{$transition-normal} #{$easing-ease-out};
 }
 
 // ================================
@@ -69,22 +63,27 @@
 // ================================
 
 .app-loading {
+  // Usar mixin centralizado
   @include flex-center;
-  min-height: 50vh;
-  flex-direction: column;
-  gap: $spacing-md;
+
+  // Propiedades específicas
+  & {
+    min-height: 50vh;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
 
   .loading-spinner {
     width: 40px;
     height: 40px;
-    border: 3px solid $border-light;
-    border-top-color: $primary-color;
-    border-radius: 50%;
+    border: 3px solid rgba(0, 212, 170, 0.2);
+    border-top-color: $rm-primary;
+    border-radius: $border-radius-full;
     animation: spin 1s linear infinite;
   }
 
   .loading-text {
-    color: $text-muted;
+    color: $text-light;
     font-size: $font-size-sm;
   }
 }
@@ -99,31 +98,18 @@
 // 📱 RESPONSIVE ADJUSTMENTS
 // ================================
 
+// Usar mixin responsivo centralizado
 @include mobile-only {
-  .app-container {
-    padding-left: $spacing-sm;
-    padding-right: $spacing-sm;
+  .main-content {
+    min-height: calc(100vh - 60px); // Header más pequeño en móvil
   }
 }
-
-// ================================
-// 🌙 DARK MODE SUPPORT (preparado para futuro)
-// ================================
-
-// @media (prefers-color-scheme: dark) {
-//   :root {
-//     // Variables para modo oscuro (implementar en el futuro)
-//     // --primary-color: #{$primary-light};
-//     // --text-color: #{$text-white};
-//     // --background-primary: #{$background-dark};
-//   }
-// }
 
 // ================================
 // ♿ ACCESIBILIDAD
 // ================================
 
-// Reducir animaciones si el usuario lo prefiere
+// Usar mixin de reduced motion
 @include reduced-motion {
   *,
   *::before,
@@ -134,9 +120,27 @@
   }
 }
 
-// Alto contraste
-@include high-contrast-mode {
-  .app-container {
-    border: 2px solid;
+// Focus visible para navegación por teclado usando variables centralizadas
+:host ::ng-deep {
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid $rm-primary;
+    outline-offset: 2px;
+    border-radius: $border-radius-sm;
+  }
+}
+
+// ================================
+// 🖨️ PRINT STYLES
+// ================================
+
+// Usar mixin de print styles
+@include print-friendly {
+  :host {
+    @include print-base-styles;
+  }
+
+  .main-content {
+    min-height: auto;
   }
 }

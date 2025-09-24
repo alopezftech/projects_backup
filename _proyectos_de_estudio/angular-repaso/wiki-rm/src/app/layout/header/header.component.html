@@ -1,0 +1,56 @@
+<!--
+  HEADER DE NAVEGACIÓN - Rick & Morty Wiki
+  
+  Header responsive con navegación principal y branding.
+  Implementa accesibilidad y navegación por teclado.
+-->
+<header class="wiki-header">
+  @if (!isMenuOpen) {
+    <div class="header-container">
+      <!-- Branding / Logo -->
+      <div class="header-brand">
+        <a routerLink="/home" class="brand-link" [attr.aria-label]="'Ir al inicio de la wiki de Rick & Morty'">
+          <div class="brand-icon">🛸</div>
+          <div class="brand-text">
+            <h1 class="brand-title">Rick & Morty</h1>
+            <span class="brand-subtitle">Wiki</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Navegación Principal -->
+      <nav class="main-navigation" role="navigation" aria-label="Navegación principal">
+        <ul class="nav-list">
+          @for (link of navigationLinks; track link.path) {
+            <li class="nav-item">
+              <a
+                [routerLink]="link.path"
+                routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: link.path === '/home' }"
+                class="nav-link"
+                [attr.aria-label]="link.description">
+                {{ link.label }}
+              </a>
+            </li>
+          }
+        </ul>
+      </nav>
+
+      <!-- Botón de menú móvil -->
+      <button
+        class="mobile-menu-toggle"
+        aria-label="Abrir menú de navegación"
+        [attr.aria-expanded]="isMenuOpen"
+        aria-controls="mobile-menu"
+        type="button"
+        (click)="toggleMobileMenu()">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+  }
+  @if (isMenuOpen) {
+    <app-mobile-menu [links]="navigationLinks" [open]="isMenuOpen" (closeMenu)="closeMobileMenu()" />
+  }
+</header>

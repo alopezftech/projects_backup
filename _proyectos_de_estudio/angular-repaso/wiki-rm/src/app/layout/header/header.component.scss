@@ -1,0 +1,291 @@
+// HEADER COMPONENT STYLES - Rick & Morty Wiki
+// Usando variables centralizadas y mixins del proyecto
+
+@use "../../../styles/variables" as *;
+@use "../../../styles/mixins" as *;
+
+// ================================
+// 🎨 VARIABLES TEMÁTICAS ESPECÍFICAS
+// ================================
+
+// Extender las variables base con tema Rick & Morty
+$rm-primary: #00d4aa;
+$rm-secondary: #64ffda;
+$rm-dark: #1a1a2e;
+$rm-darker: #0f0f23;
+$rm-blue: #16213e;
+$rm-text: #a8b2d1;
+
+// ================================
+// 🏗️ HEADER PRINCIPAL
+// ================================
+
+.hide-header-when-mobile-menu .header-container {
+  display: none !important;
+}
+
+.wiki-header {
+  // Usar variables centralizadas
+  background: linear-gradient(135deg, $rm-darker 0%, $rm-blue 100%);
+  border-bottom: 3px solid $rm-primary;
+  box-shadow: 0 2px 8px rgba(0, 212, 170, 0.2);
+  position: sticky;
+  top: 0;
+  z-index: $z-index-sticky;
+
+  .header-container {
+    min-height: 70px;
+
+    // Usar mixin centralizado
+    @include container($container-xl);
+
+    // Aplicar mixin de flex
+    @include flex-between;
+  }
+}
+
+.hide-on-mobile-menu {
+  display: none !important;
+}
+
+body.no-scroll {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100vw;
+}
+
+// ================================
+// 🏷️ BRANDING
+// ================================
+
+.header-brand {
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    text-decoration: none;
+    color: inherit;
+    transition: transform $transition-normal $easing-ease-out;
+
+    // Usar mixin de focus
+    @include focus-outline($rm-primary);
+
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+
+  .brand-icon {
+    font-size: $font-size-3xl;
+    filter: drop-shadow(0 0 8px rgba(0, 212, 170, 0.6));
+  }
+
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+
+  .brand-title {
+    // Usar variables de tipografía centralizadas
+    font-size: $font-size-2xl;
+    font-weight: $font-weight-bold;
+    margin: 0;
+    color: $rm-primary;
+    text-shadow: 0 0 10px rgba(0, 212, 170, 0.5);
+    font-family: $font-family-primary;
+  }
+
+  .brand-subtitle {
+    font-size: $font-size-sm;
+    color: $rm-text;
+    font-weight: $font-weight-medium;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+// ================================
+// 🧭 NAVEGACIÓN PRINCIPAL
+// ================================
+
+.main-navigation {
+  .nav-list {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: $spacing-xl;
+  }
+
+  .nav-item {
+    position: relative;
+  }
+
+  .nav-link {
+    display: block;
+    padding: $spacing-sm $spacing-lg;
+    text-decoration: none;
+    color: $rm-text;
+    font-weight: $font-weight-medium;
+    border-radius: $border-radius;
+    transition: all $transition-normal $easing-ease-out;
+    position: relative;
+
+    // Usar mixin de focus
+    @include focus-outline($rm-primary);
+
+    &:hover {
+      color: $rm-primary;
+      background: rgba(0, 212, 170, 0.1);
+      transform: translateY(-1px);
+    }
+
+    &.active {
+      color: $rm-primary;
+      background: rgba(0, 212, 170, 0.15);
+      box-shadow: 0 0 20px rgba(0, 212, 170, 0.3);
+
+      &::after {
+        content: "";
+        position: absolute;
+        bottom: -3px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60%;
+        height: 3px;
+        background: linear-gradient(90deg, transparent, $rm-primary, transparent);
+        border-radius: $border-radius-sm;
+      }
+    }
+  }
+}
+
+// ================================
+// 📱 MENÚ MÓVIL
+// ================================
+
+.mobile-menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  gap: $spacing-xs;
+
+  // Usar mixin de print hide para ocultar en impresión
+  @include print-hide;
+
+  // Usar mixin de focus
+  @include focus-outline($rm-primary);
+  .hamburger-line {
+    width: 24px;
+    height: 2px;
+    background: $rm-text;
+    transition: all $transition-normal $easing-ease-out;
+    border-radius: $border-radius-sm;
+  }
+
+  &:hover .hamburger-line {
+    background: $rm-primary;
+  }
+}
+
+// ================================
+// 📱 RESPONSIVE DESIGN
+// ================================
+
+// Usar mixins responsivos centralizados
+@include mobile-only {
+  .wiki-header {
+    .header-container {
+      padding: 0 $spacing-md;
+    }
+  }
+
+  .header-brand {
+    .brand-title {
+      font-size: $font-size-xl;
+    }
+
+    .brand-subtitle {
+      font-size: $font-size-xs;
+    }
+  }
+
+  .main-navigation {
+    display: none; // Se ocultará hasta implementar menú hamburguesa
+  }
+
+  .mobile-menu-toggle {
+    display: flex;
+  }
+}
+
+@media (max-width: $breakpoint-xs) {
+  .wiki-header {
+    .header-container {
+      min-height: 60px;
+    }
+  }
+
+  .header-brand {
+    .brand-icon {
+      font-size: $font-size-2xl;
+    }
+
+    .brand-title {
+      font-size: $font-size-lg;
+    }
+
+    .brand-subtitle {
+      font-size: 0.6875rem;
+    }
+  }
+}
+
+// ================================
+// 🎬 ANIMACIONES
+// ================================
+
+@keyframes glow {
+  0%,
+  100% {
+    text-shadow: 0 0 10px rgba(0, 212, 170, 0.5);
+  }
+  50% {
+    text-shadow: 0 0 20px rgba(0, 212, 170, 0.8);
+  }
+}
+
+.brand-title {
+  animation: glow 3s $easing-ease-in-out infinite;
+}
+
+// ================================
+// ♿ ACCESIBILIDAD Y PRINT
+// ================================
+
+// Usar mixin de reduced motion
+@include reduced-motion {
+  .brand-title {
+    animation: none;
+  }
+
+  .nav-link {
+    transition: none;
+  }
+}
+
+// Usar mixin de print styles
+@include print-friendly {
+  .wiki-header {
+    @include print-base-styles;
+    border-bottom: 2px solid black;
+    position: static;
+  }
+}

@@ -1,238 +1,430 @@
-/*
- * HOME COMPONENT STYLES - Ejemplo de uso de arquitectura SCSS centralizada
- * 
- * DEMOSTRACIÓN DE BUENAS PRÁCTICAS:
- * ✅ Importar solo variables y mixins necesarios usando @use
- * ✅ Usar design tokens centralizados
- * ✅ Aplicar mixins reutilizables
- * ✅ Seguir especificación Sass 2025
- * ✅ Estilos específicos del componente solamente
- * 
- * ARQUITECTURA:
- * - Variables globales desde ../../../styles/_variables.scss
- * - Mixins globales desde ../../../styles/_mixins.scss
- * - Estilos únicos del componente Home
- * 
- * NOTA: Ya no hay variables ni mixins duplicados aquí.
- * Todo viene de la arquitectura centralizada.
- */
+// HOME COMPONENT STYLES - Rick & Morty Wiki
+// Usando variables centralizadas y mixins del proyecto
 
-// Importar solo lo necesario de la arquitectura global (sintaxis moderna)
 @use "../../../styles/variables" as *;
 @use "../../../styles/mixins" as *;
 
 // ================================
-// 🏠 ESTILOS ESPECÍFICOS DEL HOME
+// 🏠 CONTENEDOR PRINCIPAL
 // ================================
 
 .home-container {
-  // Usar mixin centralizado para contenedor responsivo
-  @include container;
+  min-height: calc(100vh - 70px);
+  background:
+    radial-gradient(circle at 20% 80%, rgba(0, 212, 170, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(100, 255, 218, 0.1) 0%, transparent 50%),
+    linear-gradient(135deg, #0a0a1a 0%, $rm-darker 25%, $rm-dark 75%, $rm-light-blue 100%);
+  color: $text-light;
+  padding: $spacing-xl;
+  position: relative;
 
-  // Propiedades específicas del Home (nueva especificación Sass)
-  & {
-    font-family: $font-family-primary;
-    min-height: 100vh;
+  @include container($container-xl);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300d4aa' fill-opacity='0.03'%3E%3Ccircle cx='30' cy='30' r='1'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
+      linear-gradient(135deg, transparent 0%, rgba(0, 212, 170, 0.02) 50%, transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
   }
 }
 
 // ================================
-// 📄 HEADER SECTION
+// 🚀 HERO SECTION
 // ================================
 
-.header-section {
+.hero-section {
   text-align: center;
+  padding: $spacing-3xl 0;
   margin-bottom: $spacing-3xl;
-  padding: $spacing-3xl $spacing-xl;
-  background: $primary-gradient;
-  color: $text-white;
-  border-radius: $border-radius-lg;
 
-  h1 {
+  .hero-content {
+    @include container(800px);
+  }
+
+  .hero-icon {
     font-size: $font-size-5xl;
+    margin-bottom: $spacing-lg;
+    filter: drop-shadow(0 0 20px rgba(0, 212, 170, 0.6));
+    animation: float 3s $easing-ease-in-out infinite;
+  }
+
+  .hero-title {
+    color: $text-white;
+    background: linear-gradient(135deg, $rm-primary 0%, $rm-secondary 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-shadow:
+      0 0 30px rgba(0, 212, 170, 0.8),
+      0 0 60px rgba(100, 255, 218, 0.4);
+    margin-bottom: $spacing-lg;
+    font-weight: $font-weight-extrabold;
+    letter-spacing: -0.02em;
+
+    @include heading-1;
+  }
+
+  .hero-subtitle {
+    font-size: clamp($font-size-lg, 3vw, $font-size-2xl);
+    color: $text-white;
+    margin-bottom: $spacing-lg;
+    font-weight: $font-weight-semibold;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    opacity: 0.95;
+  }
+
+  .hero-description {
+    font-size: $font-size-lg;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: $line-height-relaxed;
+    max-width: 600px;
+    margin: 0 auto;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  }
+}
+
+// ================================
+// 🌌 NAVIGATION SECTION
+// ================================
+
+.navigation-section {
+  margin-bottom: $spacing-3xl;
+
+  .section-title {
+    text-align: center;
+    color: $text-white;
+    background: linear-gradient(135deg, $rm-primary 0%, $rm-secondary 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: $spacing-xl;
+    font-weight: $font-weight-bold;
+    text-shadow: 0 0 20px rgba(0, 212, 170, 0.6);
+    position: relative;
+
+    @include heading-2;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, $rm-primary, $rm-secondary);
+      border-radius: 2px;
+    }
+  }
+
+  .cards-grid {
+    max-width: $container-xl;
+    margin: 0 auto;
+
+    @include grid-auto-fit(320px, $spacing-xl);
+  }
+}
+
+// ================================
+// 🎴 NAVIGATION CARDS
+// ================================
+
+.nav-card {
+  background: linear-gradient(145deg, $rm-dark, $rm-darker);
+  border-radius: $border-radius-xl;
+  padding: $spacing-xl;
+  border: $border-width solid rgba(0, 212, 170, 0.2);
+  position: relative;
+  overflow: hidden;
+
+  @include hover-lift(-8px, 0 20px 40px rgba(0, 212, 170, 0.1));
+  @include slide-up(0.6s);
+  @include stagger-animation(0.1s, 3);
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, $rm-primary, $rm-secondary, $rm-primary);
+    opacity: 0;
+    transition: opacity $transition-normal $easing-ease-out;
+  }
+
+  &:hover {
+    border-color: rgba(0, 212, 170, 0.5);
+
+    &::before {
+      opacity: 1;
+    }
+
+    .card-icon {
+      transform: scale(1.1);
+    }
+  }
+
+  .card-icon {
+    font-size: $font-size-5xl;
+    margin-bottom: $spacing-lg;
+    transition: transform $transition-normal $easing-ease-out;
+    filter: drop-shadow(0 0 10px rgba(0, 212, 170, 0.3));
+  }
+
+  .card-title {
+    color: $text-white;
+    background: linear-gradient(135deg, $rm-primary 0%, $rm-secondary 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
     margin-bottom: $spacing-md;
     font-weight: $font-weight-bold;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    text-shadow: 0 0 15px rgba(0, 212, 170, 0.5);
 
-    @include mobile-only {
+    @include heading-3;
+  }
+
+  .card-description {
+    color: rgba(255, 255, 255, 0.85);
+    line-height: $line-height-relaxed;
+    margin-bottom: $spacing-lg;
+    font-size: $font-size-base;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  .card-stats {
+    color: $rm-secondary;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    margin-bottom: $spacing-lg;
+    padding: $spacing-sm $spacing-lg;
+    background: rgba(100, 255, 218, 0.15);
+    border-radius: $border-radius-full;
+    display: inline-block;
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    box-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
+  }
+
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-sm;
+    color: $rm-primary;
+    text-decoration: none;
+    font-weight: $font-weight-medium;
+    padding: $spacing-sm $spacing-lg;
+    border: $border-width solid rgba(0, 212, 170, 0.3);
+    border-radius: $border-radius;
+    transition: all $transition-normal $easing-ease-out;
+
+    @include focus-outline($rm-primary);
+
+    &:hover {
+      background: rgba(0, 212, 170, 0.1);
+      border-color: $rm-primary;
+      transform: translateX(4px);
+
+      .link-arrow {
+        transform: translateX(4px);
+      }
+    }
+
+    .link-arrow {
+      transition: transform $transition-normal $easing-ease-out;
+    }
+  }
+}
+
+// ================================
+// 📖 ABOUT SECTION
+// ================================
+
+.about-section {
+  background: rgba(26, 26, 46, 0.5);
+  border-radius: $border-radius-xl;
+  padding: $spacing-xl;
+  border: $border-width solid rgba(0, 212, 170, 0.1);
+  animation-delay: 0.4s;
+
+  @include slide-up(0.6s);
+
+  .section-title {
+    color: $text-white;
+    background: linear-gradient(135deg, $rm-primary 0%, $rm-secondary 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-align: center;
+    margin-bottom: $spacing-lg;
+    font-weight: $font-weight-bold;
+    text-shadow: 0 0 20px rgba(0, 212, 170, 0.6);
+    position: relative;
+
+    @include heading-2;
+
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, $rm-primary, $rm-secondary);
+      border-radius: 2px;
+    }
+  }
+
+  .about-content {
+    text-align: center;
+
+    @include container(800px);
+
+    p {
+      color: rgba(255, 255, 255, 0.9);
+      line-height: $line-height-relaxed;
+      margin-bottom: $spacing-lg;
+      font-size: $font-size-lg;
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    }
+
+    .external-link {
+      color: $rm-secondary;
+      text-decoration: none;
+      font-weight: $font-weight-medium;
+      border-bottom: $border-width solid transparent;
+      transition: border-bottom-color $transition-normal $easing-ease-out;
+
+      &:hover {
+        border-bottom-color: $rm-secondary;
+      }
+    }
+  }
+
+  .features-list {
+    margin-top: $spacing-xl;
+
+    @include grid-auto-fit(280px, $spacing-lg);
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: $spacing-md;
+      padding: $spacing-md;
+      background: rgba(0, 212, 170, 0.05);
+      border-radius: $border-radius;
+      border-left: 3px solid $rm-primary;
+
+      .feature-icon {
+        font-size: $font-size-2xl;
+        flex-shrink: 0;
+      }
+
+      span:last-child {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: $font-size-base;
+        font-weight: $font-weight-medium;
+      }
+    }
+  }
+}
+
+// ================================
+// 🎬 ANIMACIONES
+// ================================
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// ================================
+// 📱 RESPONSIVE DESIGN
+// ================================
+
+@include mobile-only {
+  .home-container {
+    padding: $spacing-lg;
+  }
+
+  .hero-section {
+    padding: $spacing-xl 0;
+
+    .hero-icon {
       font-size: $font-size-4xl;
     }
   }
 
-  p {
-    font-size: $font-size-xl;
-    margin-bottom: $spacing-sm;
-    color: rgba(255, 255, 255, 0.98); // Mucho más legible
-    font-weight: $font-weight-medium; // Añadir peso para mejor legibilidad
+  .navigation-section {
+    .cards-grid {
+      grid-template-columns: 1fr;
+      gap: $spacing-lg;
+    }
+  }
 
-    &.subtitle {
-      font-size: $font-size-lg; // Aumentar tamaño para mejor legibilidad
-      color: rgba(255, 255, 255, 0.95); // Más contraste que antes
-      font-style: italic;
-      font-weight: $font-weight-normal;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3); // Sombra sutil para legibilidad
+  .nav-card {
+    padding: $spacing-lg;
+  }
+
+  .about-section {
+    .features-list {
+      grid-template-columns: 1fr;
     }
   }
 }
 
-// ================================
-// 📋 MAIN CONTENT
-// ================================
-
-.main-content {
-  display: flex;
-  flex-direction: column;
-  gap: $spacing-3xl;
-}
-
-// ================================
-// ✨ FEATURES OVERVIEW
-// ================================
-
-.features-overview {
-  h2 {
-    // Mixin primero (contiene reglas anidadas)
-    @include heading-2;
-
-    // Propiedades después, envueltas en & {}
-    & {
-      text-align: center;
-      margin-bottom: $spacing-xl;
+@media (max-width: $breakpoint-xs) {
+  .nav-card {
+    .card-icon {
+      font-size: $font-size-4xl;
     }
-  }
-}
 
-.feature-grid {
-  @include grid-auto-fit(300px, $spacing-xl);
-
-  @include mobile-only {
-    grid-template-columns: 1fr;
-    gap: $spacing-lg;
-  }
-}
-
-.feature-card {
-  // Propiedades específicas de las cards
-  background: $background-primary;
-  padding: $spacing-xl $spacing-lg;
-  border-radius: $border-radius;
-  border-left: 4px solid $primary-color;
-  transition: all $transition-normal $easing-ease-out;
-
-  // Aplicar mixins centralizados
-  @include card-shadow;
-  @include hover-lift;
-
-  h3 {
-    // Mixin primero (contiene reglas anidadas)
-    @include heading-3;
-
-    // Propiedades después, envueltas en & {}
-    & {
-      margin-bottom: $spacing-lg;
-      display: flex;
-      align-items: center;
-      gap: $spacing-sm;
+    .card-title {
       font-size: $font-size-xl;
     }
   }
-
-  p {
-    color: $text-secondary;
-    line-height: $line-height-relaxed;
-    font-size: $font-size-base;
-  }
 }
 
 // ================================
-// 📚 NEXT STEPS SECTION
+// ♿ ACCESIBILIDAD Y PRINT
 // ================================
 
-.next-steps {
-  background: $background-secondary;
-  padding: $spacing-xl;
-  border-radius: $border-radius;
-  border: $border-width solid $border-color;
-
-  h2 {
-    // Mixin primero (contiene reglas anidadas)
-    @include heading-2;
-
-    // Propiedades después, envueltas en & {}
-    & {
-      margin-bottom: $spacing-lg;
-    }
+@include reduced-motion {
+  .hero-icon {
+    animation: none;
   }
 
-  p {
-    color: $text-secondary;
-    margin-bottom: $spacing-lg;
-    font-size: $font-size-lg;
-    line-height: $line-height-relaxed;
-  }
-
-  ul {
-    color: $text-secondary;
-    line-height: $line-height-loose;
-    padding-left: $spacing-lg;
-
-    li {
-      margin-bottom: $spacing-sm;
-      font-size: $font-size-base;
-      transition: color $transition-fast $easing-ease-out;
-
-      &::marker {
-        color: $primary-color;
-      }
-
-      &:hover {
-        color: $text-color;
-      }
-    }
+  .nav-card {
+    animation: none;
   }
 }
-
-// ================================
-// 🎬 ANIMACIONES ESPECÍFICAS
-// ================================
-
-// Aplicar animaciones de entrada usando mixins globales
-.feature-card {
-  @include slide-up;
-  @include stagger-animation(0.1s, 4);
-}
-
-.header-section {
-  @include fade-in(0.8s);
-}
-
-.next-steps {
-  @include slide-up(0.6s);
-  animation-delay: 0.4s;
-}
-
-// ================================
-// ♿ ACCESIBILIDAD ESPECÍFICA
-// ================================
-
-.feature-card,
-.next-steps {
-  @include focus-outline;
-}
-
-// ================================
-// 🖨️ PRINT STYLES ESPECÍFICOS
-// ================================
 
 @include print-friendly {
-  .header-section {
+  .home-container {
     @include print-base-styles;
-    border: 2px solid black;
   }
 
-  .feature-card {
+  .nav-card {
     @include print-base-styles;
     break-inside: avoid;
-    border: 1px solid black;
+    border: $border-width solid black;
   }
 }

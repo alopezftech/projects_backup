@@ -47,23 +47,28 @@ export const routes: Routes = [
   {
     path: 'home',
     loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent),
-    title: 'Home - Angular 20 example project',
+    title: 'Inicio - Rick & Morty Wiki',
   },
 
-  // TODO: Aquí se agregarán las rutas de cada feature cuando se implementen
-  // Ejemplo de como serían las rutas de features:
-  /*
+  // Rutas de las nuevas secciones de la wiki
   {
-    path: 'characters',
-    loadChildren: () => import('./features/characters/character.routes').then(m => m.characterRoutes),
-    title: 'Characters - Rick & Morty Wiki'
+    path: 'personajes',
+    loadComponent: () =>
+      import('./shared/components/not-found/not-found.component').then(m => m.NotFoundComponent),
+    title: 'Personajes - Rick & Morty Wiki',
   },
   {
-    path: 'episodes', 
-    loadChildren: () => import('./features/episodes/episode.routes').then(m => m.episodeRoutes),
-    title: 'Episodes - Rick & Morty Wiki'
+    path: 'episodios',
+    loadComponent: () =>
+      import('./shared/components/not-found/not-found.component').then(m => m.NotFoundComponent),
+    title: 'Episodios - Rick & Morty Wiki',
   },
-  */
+  {
+    path: 'curiosidades',
+    loadComponent: () =>
+      import('./shared/components/not-found/not-found.component').then(m => m.NotFoundComponent),
+    title: 'Curiosidades - Rick & Morty Wiki',
+  },
 
   // Ruta de error 404 - debe ir antes del wildcard
   {

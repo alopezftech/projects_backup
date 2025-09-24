@@ -1,87 +1,106 @@
 <!--
-  HOME COMPONENT TEMPLATE - Angular 20 Feature-Based Architecture
+  HOME COMPONENT - Rick & Morty Wiki
   
-  Esta es la página principal del Angular 20 Example Project que demuestra:
-  - Semantic HTML5 elements
-  - Responsive design con CSS Grid
-  - Contenido informativo sobre la arquitectura
-  - Accesibilidad (a11y) integrada
+  Página principal de la wiki de Rick & Morty que presenta:
+  - Introducción a la serie y la wiki
+  - Enlaces de navegación a las secciones principales
+  - Diseño atractivo con tema de la serie
 -->
 
 <div class="home-container">
-  <!-- Header Section - Sección principal de bienvenida -->
-  <header class="header-section">
-    <h1>Angular 20 Example Project</h1>
-    <p>Proyecto de ejemplo empresarial para hub de microfrontends</p>
-    <p class="subtitle">Arquitectura escalable y moderna con las mejores prácticas de Angular 20</p>
+  <!-- Hero Section - Bienvenida principal -->
+  <header class="hero-section">
+    <div class="hero-content">
+      <div class="hero-icon">🛸</div>
+      <h1 class="hero-title">Bienvenido a la Wiki de Rick & Morty</h1>
+      <p class="hero-subtitle">Tu portal definitivo al multiverso de Rick Sanchez y Morty Smith</p>
+      <p class="hero-description">
+        Explora personajes, episodios y curiosidades de una de las series de animación más brillantes y locas del
+        universo.
+      </p>
+    </div>
   </header>
 
-  <!-- Main Content - Contenido principal -->
-  <main class="main-content">
-    <!-- Features Overview - Características del proyecto -->
-    <section class="features-overview">
-      <h2>Características del Angular 20 Example Project</h2>
+  <!-- Navigation Cards - Secciones principales -->
+  <section class="navigation-section">
+    <h2 class="section-title">Explora el Multiverso</h2>
 
-      <div class="feature-grid">
-        <article class="feature-card">
-          <h3>🏗️ Arquitectura Feature-Based</h3>
-          <p>Organización modular donde cada funcionalidad es independiente y se puede desarrollar por separado.</p>
-        </article>
+    <div class="cards-grid">
+      <!-- Personajes -->
+      <article class="nav-card">
+        <div class="card-icon">👥</div>
+        <h3 class="card-title">Personajes</h3>
+        <p class="card-description">
+          Descubre todos los personajes del universo Rick & Morty, desde los protagonistas hasta los aliens más
+          extraños.
+        </p>
+        <div class="card-stats">826 personajes disponibles</div>
+        <a routerLink="/personajes" class="card-link" aria-label="Ver todos los personajes">
+          Explorar Personajes
+          <span class="link-arrow">→</span>
+        </a>
+      </article>
 
-        <article class="feature-card">
-          <h3>⚡ Angular 20 Control Flow</h3>
-          <p>
-            Control Flow nativo (&#64;if, &#64;for, &#64;switch) sin directivas estructurales, con mejor performance y
-            bundle size optimizado.
-          </p>
-        </article>
+      <!-- Episodios -->
+      <article class="nav-card">
+        <div class="card-icon">📺</div>
+        <h3 class="card-title">Episodios</h3>
+        <p class="card-description">
+          Revive todos los episodios de la serie, conoce los detalles de cada aventura y los personajes que aparecen.
+        </p>
+        <div class="card-stats">51 episodios disponibles</div>
+        <a routerLink="/episodios" class="card-link" aria-label="Ver todos los episodios">
+          Ver Episodios
+          <span class="link-arrow">→</span>
+        </a>
+      </article>
 
-        <article class="feature-card">
-          <h3>🧩 Standalone Components</h3>
-          <p>Componentes standalone sin NgModules, con importaciones explícitas y mejor tree-shaking automático.</p>
-        </article>
+      <!-- Curiosidades -->
+      <article class="nav-card">
+        <div class="card-icon">🌌</div>
+        <h3 class="card-title">Curiosidades</h3>
+        <p class="card-description">
+          Datos curiosos, estadísticas, ubicaciones interdimensionales y secretos del multiverso de Rick & Morty.
+        </p>
+        <div class="card-stats">126 ubicaciones y más</div>
+        <a routerLink="/curiosidades" class="card-link" aria-label="Ver curiosidades y datos">
+          Descubrir Secretos
+          <span class="link-arrow">→</span>
+        </a>
+      </article>
+    </div>
+  </section>
 
-        <article class="feature-card">
-          <h3>🎨 SCSS Centralizado</h3>
-          <p>Arquitectura SCSS con design tokens, mixins reutilizables y sistema responsive mobile-first.</p>
-        </article>
+  <!-- About Section - Información sobre la wiki -->
+  <section class="about-section">
+    <h2 class="section-title">Sobre esta Wiki</h2>
+    <div class="about-content">
+      <p>
+        Esta wiki está construida con <strong>Angular 20</strong> y utiliza la
+        <a href="https://rickandmortyapi.com" target="_blank" rel="noopener" class="external-link">
+          Rick and Morty API
+        </a>
+        oficial para obtener toda la información actualizada sobre la serie.
+      </p>
 
-        <article class="feature-card">
-          <h3>🌐 HTTP Interceptors</h3>
-          <p>
-            Sistema de interceptores para logging, reintentos automáticos, manejo de errores y estados de carga
-            globales.
-          </p>
-        </article>
-
-        <article class="feature-card">
-          <h3>🚀 Server-Side Rendering</h3>
-          <p>Configuración optimizada para SSR con hydration del cliente y transferencia de estado integrada.</p>
-        </article>
+      <div class="features-list">
+        <div class="feature-item">
+          <span class="feature-icon">⚡</span>
+          <span>Datos actualizados en tiempo real</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">📱</span>
+          <span>Diseño responsive para todos los dispositivos</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🔍</span>
+          <span>Búsqueda y filtros avanzados</span>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">🎨</span>
+          <span>Interfaz moderna inspirada en la serie</span>
+        </div>
       </div>
-    </section>
-
-    <!-- Getting Started - Cómo empezar -->
-    <section class="getting-started">
-      <h2>Cómo Empezar con este Angular 20 Example Project</h2>
-      <p>Este proyecto está listo para empezar a desarrollar. Próximos pasos recomendados:</p>
-      <ol>
-        <li>📋 Crear tu primer feature en <code>src/app/features/tu-feature/</code></li>
-        <li>🔧 Añadir servicios específicos en <code>src/app/core/services/</code></li>
-        <li>🧩 Desarrollar componentes reutilizables en <code>src/app/shared/components/</code></li>
-        <li>🎨 Personalizar design tokens en <code>src/styles/_variables.scss</code></li>
-        <li>📚 Consultar la documentación completa en <code>docs/README.md</code></li>
-      </ol>
-
-      <div class="template-benefits">
-        <h3>Beneficios de esta Arquitectura</h3>
-        <ul>
-          <li>🚀 <strong>Performance:</strong> Bundle size optimizado (93% reducción)</li>
-          <li>👥 <strong>Escalabilidad:</strong> Desarrollo paralelo por equipos</li>
-          <li>🔧 <strong>Mantenimiento:</strong> Código modular y testeable</li>
-          <li>📦 <strong>Microfrontends:</strong> Preparado para arquitectura distribuida</li>
-        </ul>
-      </div>
-    </section>
-  </main>
+    </div>
+  </section>
 </div>
