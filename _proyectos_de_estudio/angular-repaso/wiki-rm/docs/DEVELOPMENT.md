@@ -143,9 +143,8 @@ Los Shared Components son elementos de UI reutilizables que pueden utilizarse en
 # Crear componente compartido
 ng generate component shared/components/modal --standalone
 
-# Añadir al barrel export
-# shared/components/index.ts
-export * from './modal/modal.component';
+# Importar directamente desde el archivo del componente
+import { ModalComponent } from '@app/shared/components/modal/modal.component';
 ```
 
 **Principios de Shared Components:**
@@ -153,7 +152,7 @@ export * from './modal/modal.component';
 - **Reusabilidad**: Diseñados para ser utilizados en múltiples contextos
 - **Configurabilidad**: Aceptan inputs para personalizar comportamiento y apariencia
 - **Consistencia**: Siguen guidelines de design system establecidos
-- **Barrel Exports**: Facilitan importaciones limpias y mantenimiento
+- **Explicit Imports**: Facilitan la trazabilidad y el refactoring del código
 
 ### 3. Template Base para Componentes
 
@@ -220,9 +219,9 @@ export class ApiService {
 ### 2. Añadir al Core Index
 
 ```typescript
-// core/services/index.ts
-export * from './logger.service';
-export * from './api.service';
+// Importar servicios directamente desde su archivo
+import { LoggerService } from '@app/core/services/logger.service';
+import { ApiService } from '@app/core/services/api.service';
 ```
 
 ## 🔧 HTTP Interceptors
@@ -541,7 +540,7 @@ export class ConfigService {
 - [ ] `npm run test:ci` todos los tests pasan
 - [ ] Componentes tienen tests unitarios
 - [ ] Documentación actualizada
-- [ ] Barrel exports actualizados
+- [ ] Imports explícitos y claros
 - [ ] No hay console.log en código de producción
 - [ ] Types definidos correctamente
 - [ ] Error handling implementado

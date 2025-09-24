@@ -13,6 +13,16 @@ import { environment } from '../../../environments/environment';
 })
 export class LoggerService {
   private readonly isDevelopment = !environment.production;
+  private readonly showResponseBody = environment.showResponseBody;
+
+  /**
+   * Permite cambiar dinámicamente si se muestra el body de la response
+   */
+  setShowResponseBody(show: boolean) {
+    if (typeof window !== 'undefined') {
+      (window as any).SHOW_RESPONSE_BODY = show;
+    }
+  }
 
   /**
    * Log de información general
@@ -85,13 +95,12 @@ export class LoggerService {
   ): void {
     if (this.isDevelopment) {
       const emoji = status >= 200 && status < 300 ? '✅' : '❌';
-      // eslint-disable-next-line no-console
       console.group(`${emoji} HTTP ${method} ${url} - ${status} (${duration}ms)`);
-      if (data) {
-        // eslint-disable-next-line no-console
+      if (this.showResponseBody && data) {
         console.log('Response:', data);
+      } else {
+        console.log(`Petición completada (${status}) en ${duration}ms`);
       }
-      // eslint-disable-next-line no-console
       console.groupEnd();
     }
   }

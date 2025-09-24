@@ -1,0 +1,434 @@
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/mixins" as *;
+
+.characters-page {
+  padding: $spacing-xl;
+  background:
+    radial-gradient(circle at 20% 80%, rgba(0, 212, 170, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(100, 255, 218, 0.08) 0%, transparent 50%);
+
+  @include mobile-only {
+    padding: $spacing-lg $spacing-md;
+  }
+}
+
+.characters-header {
+  background: linear-gradient(135deg, $rm-dark 0%, $rm-darker 100%);
+  color: $text-white;
+  padding: $spacing-xl $spacing-2xl;
+  border-radius: $border-radius-xl;
+  margin-bottom: $spacing-2xl;
+  box-shadow: 0 0.125rem 1rem rgba(0, 212, 170, 0.08);
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Centramos todo el contenido
+  text-align: center; // Centramos el texto
+
+  @include mobile-only {
+    padding: $spacing-lg $spacing-xl;
+    margin-bottom: $spacing-xl;
+    border-radius: $border-radius-lg;
+  }
+}
+
+.characters-header h1 {
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-extrabold;
+  margin: 0 0 $spacing-xl 0;
+  background: linear-gradient(135deg, $rm-primary 0%, $rm-secondary 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow:
+    0 0 1.875rem rgba(0, 212, 170, 0.8),
+    0 0 3.75rem rgba(100, 255, 218, 0.4);
+  letter-spacing: -0.02em;
+
+  @include mobile-only {
+    font-size: $font-size-2xl; // Reducido de 3xl a 2xl
+    margin-bottom: $spacing-lg; // Más espaciado con el buscador
+    text-shadow:
+      0 0 1.25rem rgba(0, 212, 170, 0.6),
+      0 0 2.5rem rgba(100, 255, 218, 0.3);
+  }
+}
+
+.characters-content {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-2xl;
+}
+
+.characters-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: $spacing-xl;
+
+  @include mobile-only {
+    grid-template-columns: repeat(auto-fit, minmax(17.5rem, 1fr));
+    gap: $spacing-lg;
+  }
+
+  @media (max-width: 22.5rem) {
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+  }
+}
+
+.character-card {
+  background: linear-gradient(145deg, $rm-dark, $rm-darker);
+  border-radius: $border-radius-xl;
+  padding: $spacing-xl;
+  border: $border-width solid rgba(0, 212, 170, 0.2);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition:
+    box-shadow $transition-normal $easing-ease-out,
+    border-color $transition-normal $easing-ease-out;
+  box-shadow: 0 0.125rem 1rem rgba(0, 212, 170, 0.08);
+  @include hover-lift(-0.5rem, 0 1.25rem 2.5rem rgba(0, 212, 170, 0.1));
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 0.1875rem;
+    background: linear-gradient(90deg, $rm-primary, $rm-secondary, $rm-primary);
+    opacity: 0;
+    transition: opacity $transition-normal $easing-ease-out;
+  }
+
+  &:hover {
+    border-color: rgba(0, 212, 170, 0.5);
+    &::before {
+      opacity: 1;
+    }
+    .character-card__image {
+      filter: drop-shadow(0 0 1.25rem $rm-primary);
+      transform: scale(1.08) rotate(-2deg);
+    }
+  }
+}
+
+.character-card__image {
+  width: 7.5rem;
+  height: 7.5rem;
+  object-fit: cover;
+  border-radius: $border-radius-xl;
+  margin-bottom: $spacing-lg;
+  border: 0.1875rem solid $rm-primary;
+  background: $rm-secondary;
+  box-shadow: 0 0 0.625rem rgba(0, 212, 170, 0.15);
+  transition:
+    filter $transition-normal $easing-ease-out,
+    transform $transition-normal $easing-ease-out;
+}
+
+.character-card__info {
+  text-align: center;
+}
+
+.character-card__name {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-sm;
+  color: $text-white;
+  background: linear-gradient(135deg, $rm-primary 0%, $rm-secondary 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 0.9375rem rgba(0, 212, 170, 0.5);
+}
+
+.character-card__species {
+  font-size: $font-size-base;
+  color: $rm-secondary;
+  font-weight: $font-weight-semibold;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: $z-index-modal; // Usar la variable correcta para modal
+  padding: $spacing-lg;
+  backdrop-filter: blur(0.25rem);
+  overflow-y: auto; // Permitir scroll en el overlay si es necesario
+  -webkit-overflow-scrolling: touch;
+
+  @media (max-width: 47.9375rem) {
+    // Para pantallas pequeñas (767px y menores)
+    align-items: flex-start; // Alinear al inicio
+    justify-content: center;
+    padding: $spacing-sm $spacing-sm 0; // Sin padding inferior para más espacio
+    // Agregar padding-top suficiente para evitar superposición con header
+    padding-top: 5.625rem; // Header (~70px) + margen de seguridad (20px)
+
+    // En dispositivos con poca altura, reducir padding superior
+    @media (max-height: 37.5rem) {
+      padding-top: 4.375rem; // Menos padding en dispositivos con poca altura
+    }
+
+    // Para iPhone SE y similares (muy pequeños) - header es de 60px
+    @media (max-height: 35.5rem) {
+      padding-top: 4.6875rem; // Header (60px) + margen (15px)
+    }
+
+    // Para pantallas muy pequeñas en ancho
+    @media (max-width: 30rem) {
+      padding-top: 5rem; // Header + margen apropiado
+    }
+  }
+
+  @media (max-height: 37.5rem) and (min-width: 48rem) {
+    // Para dispositivos con poca altura pero pantalla ancha (tablets en landscape)
+    padding: $spacing-xs;
+    padding-top: $spacing-sm;
+    align-items: flex-start;
+  }
+}
+
+.modal-content {
+  background: linear-gradient(135deg, $rm-dark 0%, $rm-darker 100%);
+  border-radius: $border-radius-xl;
+  box-shadow:
+    0 0.25rem 1.5rem rgba(0, 212, 170, 0.18),
+    0 0 0 0.0625rem rgba(0, 212, 170, 0.1);
+  padding: $spacing-lg;
+  position: relative;
+  min-width: 20rem;
+  max-width: min(90vw, 37.5rem);
+  color: $text-white;
+  // Remover restricciones de altura fijas para permitir contenido dinámico
+  max-height: none;
+  overflow: visible;
+
+  // Usar flexbox para optimizar el espacio disponible
+  display: flex;
+  flex-direction: column;
+
+  // En dispositivos con poca altura, limitar altura y permitir scroll interno
+  @media (max-height: 43.75rem) {
+    max-height: calc(100vh - 2.5rem); // Dejar espacio mínimo
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  @media (max-width: 47.9375rem) {
+    // Para pantallas pequeñas (767px y menores)
+    width: calc(100vw - #{$spacing-md * 2});
+    max-width: calc(100vw - #{$spacing-md * 2});
+    padding: $spacing-md;
+    margin: 0;
+    border-radius: $border-radius-lg;
+
+    // Asegurar que no se desborde verticalmente considerando el padding-top del overlay
+    max-height: calc(100vh - 6.875rem); // Considerar padding-top (90px) + margen (20px)
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+
+    // Para dispositivos con poca altura
+    @media (max-height: 37.5rem) {
+      max-height: calc(100vh - 5.625rem); // padding-top (70px) + margen (20px)
+    }
+
+    @media (max-height: 35.5rem) {
+      max-height: calc(100vh - 5.9375rem); // padding-top (75px) + margen (20px)
+    }
+
+    @media (max-width: 30rem) {
+      max-height: calc(100vh - 6.25rem); // padding-top (80px) + margen (20px)
+    }
+  }
+
+  @media (max-width: 23.4375rem) {
+    // Para pantallas muy pequeñas
+    width: calc(100vw - #{$spacing-sm * 2});
+    max-width: calc(100vw - #{$spacing-sm * 2});
+    padding: $spacing-sm;
+  }
+
+  // Para dispositivos en landscape con poca altura
+  @media (orientation: landscape) and (max-height: 31.25rem) {
+    max-height: calc(100vh - 1.25rem);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: $spacing-md; // Reducir espacio superior
+  right: $spacing-md;
+  background: none;
+  border: none;
+  font-size: $font-size-2xl; // Reducir tamaño base
+  color: $rm-primary;
+  cursor: pointer;
+  transition: color $transition-normal $easing-ease-out;
+  z-index: 1;
+  line-height: 1; // Compactar línea
+  width: 2rem; // Dar un área de click específica
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: $rm-secondary;
+  }
+
+  @include mobile-only {
+    top: $spacing-xs; // Menos espacio en móvil
+    right: $spacing-xs;
+    font-size: $font-size-xl; // Más pequeño pero aún clickeable
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+
+  // Para dispositivos con poca altura, hacer más compacto
+  @media (max-height: 37.5rem) {
+    top: $spacing-xs;
+    right: $spacing-xs;
+    font-size: $font-size-xl;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+}
+
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-xl;
+  margin-top: $spacing-xl;
+
+  @include mobile-only {
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+}
+
+.pagination-btn {
+  background: linear-gradient(135deg, $rm-primary 0%, $rm-secondary 100%);
+  color: $text-white;
+  border: none;
+  border-radius: $border-radius;
+  padding: $spacing-sm $spacing-lg;
+  font-size: $font-size-base;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 212, 170, 0.08);
+  transition:
+    background $transition-normal $easing-ease-out,
+    color $transition-normal $easing-ease-out,
+    opacity $transition-normal $easing-ease-out;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: rgba(0, 212, 170, 0.3);
+  }
+
+  &:hover:not(:disabled) {
+    background: linear-gradient(135deg, $rm-secondary 0%, $rm-primary 100%);
+    color: $rm-dark;
+    transform: translateY(-0.0625rem);
+  }
+
+  @include mobile-only {
+    padding: $spacing-xs $spacing-md;
+    font-size: $font-size-sm;
+    width: 100%;
+    max-width: 12.5rem;
+  }
+}
+
+.pagination-info {
+  color: $rm-secondary;
+  font-size: $font-size-base;
+  font-weight: $font-weight-semibold;
+
+  @include mobile-only {
+    font-size: $font-size-sm;
+    order: -1;
+  }
+}
+
+// ================================
+// 🔄 LOADING & ERROR STATES
+// ================================
+
+.loading-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-3xl;
+  gap: $spacing-lg;
+  color: $rm-secondary;
+  font-size: $font-size-lg;
+  font-weight: $font-weight-medium;
+
+  .loading-spinner {
+    width: 2.5rem;
+    height: 2.5rem;
+    border: 0.1875rem solid rgba(0, 212, 170, 0.1);
+    border-top: 0.1875rem solid $rm-primary;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+}
+
+.error-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: $spacing-2xl;
+  gap: $spacing-lg;
+  background: linear-gradient(135deg, rgba(245, 101, 101, 0.1) 0%, rgba(220, 53, 69, 0.1) 100%);
+  border: 0.0625rem solid rgba(245, 101, 101, 0.3);
+  border-radius: $border-radius-lg;
+  color: #ff6b6b;
+  font-size: $font-size-base;
+  text-align: center;
+
+  .retry-btn {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    color: white;
+    border: none;
+    border-radius: $border-radius;
+    padding: $spacing-sm $spacing-lg;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    cursor: pointer;
+    transition: all $transition-normal $easing-ease-out;
+
+    &:hover {
+      background: linear-gradient(135deg, #ff5252 0%, #d32f2f 100%);
+      transform: translateY(-0.0625rem);
+    }
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

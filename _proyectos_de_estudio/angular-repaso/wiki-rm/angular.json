@@ -54,6 +54,14 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "full-logs": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.fullLogs.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -66,6 +74,9 @@
             },
             "development": {
               "buildTarget": "angular-20-example-project:build:development"
+            },
+            "full-logs": {
+              "buildTarget": "angular-20-example-project:build:full-logs"
             }
           },
           "defaultConfiguration": "development"

@@ -46,25 +46,24 @@ export const routes: Routes = [
   // Ruta de inicio/dashboard
   {
     path: 'home',
-    loadComponent: () => import('./features/home/home.component').then(m => m.HomeComponent),
+    loadComponent: () => import('./features/home/home-page/home-page.component').then(m => m.HomeComponent),
     title: 'Inicio - Rick & Morty Wiki',
   },
 
-  // Rutas de las nuevas secciones de la wiki
+  // Wiki sections in English paths
   {
-    path: 'personajes',
-    loadComponent: () =>
-      import('./shared/components/not-found/not-found.component').then(m => m.NotFoundComponent),
+    path: 'characters',
+    loadChildren: () => import('./features/characters/character.routes').then(m => m.characterRoutes),
     title: 'Personajes - Rick & Morty Wiki',
   },
   {
-    path: 'episodios',
+    path: 'episodes',
     loadComponent: () =>
       import('./shared/components/not-found/not-found.component').then(m => m.NotFoundComponent),
     title: 'Episodios - Rick & Morty Wiki',
   },
   {
-    path: 'curiosidades',
+    path: 'curiosities',
     loadComponent: () =>
       import('./shared/components/not-found/not-found.component').then(m => m.NotFoundComponent),
     title: 'Curiosidades - Rick & Morty Wiki',

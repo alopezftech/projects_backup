@@ -26,7 +26,7 @@
 
 .mobile-menu-header .brand-icon {
   font-size: $font-size-4xl;
-  filter: drop-shadow(0 0 8px rgba($rm-primary, 0.6));
+  filter: drop-shadow(0 0 0.5rem rgba($rm-primary, 0.6));
   margin-bottom: $spacing-md;
 }
 
@@ -42,7 +42,7 @@
   font-weight: $font-weight-bold;
   margin: 0;
   color: $rm-primary;
-  text-shadow: 0 0 10px rgba($rm-primary, 0.5);
+  text-shadow: 0 0 0.625rem rgba($rm-primary, 0.5);
   font-family: $font-family-primary;
 }
 
@@ -51,7 +51,7 @@
   color: $text-light;
   font-weight: $font-weight-medium;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 0.0625rem;
 }
 
 .mobile-nav-list {

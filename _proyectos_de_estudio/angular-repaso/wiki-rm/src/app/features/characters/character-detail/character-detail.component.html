@@ -1,0 +1,15 @@
+@if (character()) {
+  <div class="character-detail">
+    <img [src]="character().image" [alt]="character().name" class="character-detail__image" />
+    <div class="character-detail__info">
+      <h2 class="character-detail__name">{{ character().name }}</h2>
+      <ul class="character-detail__list">
+        <li><strong>Estado:</strong> {{ character().status }}</li>
+        <li><strong>Especie:</strong> {{ character().species }}</li>
+        <li><strong>Género:</strong> {{ character().gender }}</li>
+        <li><strong>Origen:</strong> {{ character().origin.name }}</li>
+        <li><strong>Ubicación:</strong> {{ character().location.name }}</li>
+      </ul>
+    </div>
+  </div>
+}

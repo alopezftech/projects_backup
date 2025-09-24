@@ -63,7 +63,7 @@ src/app/
 │       └── home.component.scss
 │
 ├── layout/                        # 🖼️ Componentes de layout
-│   └── index.ts                  # Barrel export
+│   └── header/                   # Componente header
 │
 ├── shared/                        # 🔄 Componentes compartidos
 │   ├── components/               # Componentes reutilizables
@@ -309,7 +309,7 @@ src/styles/
 
 - **Feature Modules**: Separación clara
 - **Lazy Loading**: Carga bajo demanda
-- **Barrel Exports**: Importaciones limpias
+- **Explicit Imports**: Importaciones directas y claras
 - **Service Isolation**: Responsabilidades claras
 
 ### 2. Team Scaling

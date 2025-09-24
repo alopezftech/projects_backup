@@ -58,7 +58,7 @@ npm start
 - **Angular 20** con Standalone Components
 - **Server-Side Rendering (SSR)** configurado
 - **Arquitectura modular** con separación clara de responsabilidades
-- **Barrel exports** para importaciones limpias
+- **Imports explícitos** para mayor claridad del código
 
 ### 🛠️ **Herramientas de Desarrollo**
 

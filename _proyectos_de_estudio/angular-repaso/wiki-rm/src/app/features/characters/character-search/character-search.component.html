@@ -1,0 +1,13 @@
+<form class="character-search" (submit)="$event.preventDefault(); onSearch()">
+  <input
+    type="text"
+    [(ngModel)]="searchTerm"
+    placeholder="🛸 ¡Busca tu personaje favorito!"
+    name="search"
+    class="character-search__input"
+    autocomplete="off"
+  />
+  <button type="submit" class="character-search__button">
+    🔍 Buscar
+  </button>
+</form>

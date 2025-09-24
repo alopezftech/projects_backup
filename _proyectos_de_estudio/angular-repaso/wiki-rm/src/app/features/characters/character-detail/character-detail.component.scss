@@ -1,0 +1,162 @@
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/mixins" as *;
+
+.character-detail {
+  display: flex;
+  gap: $spacing-xl; // Reducir gap para optimizar espacio
+  background: linear-gradient(135deg, $rm-dark 0%, $rm-darker 100%);
+  border-radius: $border-radius-xl;
+  box-shadow: 0 0.25rem 1.5rem rgba(0, 212, 170, 0.18);
+  padding: $spacing-lg; // Reducir padding para optimizar espacio
+  align-items: center; // Volver a center para centrar la imagen verticalmente
+  color: $text-white;
+  position: relative;
+  // Asegurar que el contenido no se desborde
+  min-height: fit-content;
+  flex-shrink: 0;
+
+  @include mobile-only {
+    flex-direction: column;
+    text-align: center;
+    gap: $spacing-lg; // Reducir gap en móvil
+    padding: $spacing-md; // Menos padding en móvil
+    border-radius: $border-radius-lg;
+    align-items: center; // Centrar en móvil
+  }
+
+  // Optimización para dispositivos con poca altura
+  @media (max-height: 37.5rem) {
+    gap: $spacing-md;
+    padding: $spacing-md;
+
+    @include mobile-only {
+      gap: $spacing-sm;
+      padding: $spacing-sm;
+    }
+  }
+}
+
+.character-detail__image {
+  width: 12.5rem;
+  height: 12.5rem;
+  object-fit: cover;
+  border-radius: $border-radius-xl;
+  box-shadow: 0 0.125rem 1rem rgba(0, 212, 170, 0.18);
+  border: 0.1875rem solid $rm-primary;
+  background: $rm-secondary;
+  margin-right: $spacing-lg;
+  flex-shrink: 0;
+  // Remover justify-content que no aplica aquí
+  // La imagen se centrará por el align-items: center del contenedor padre
+
+  @include mobile-only {
+    width: 9.375rem; // Aumentar un poco en móvil para mejor proporción
+    height: 9.375rem;
+    margin-right: 0;
+    margin-bottom: $spacing-sm;
+    border-radius: $border-radius-lg;
+    // En móvil ya está centrada por el align-items: center del padre
+  }
+
+  // Para dispositivos con poca altura, usar imagen más pequeña
+  @media (max-height: 37.5rem) {
+    width: 10rem;
+    height: 10rem;
+
+    @include mobile-only {
+      width: 7.5rem;
+      height: 7.5rem;
+    }
+  }
+}
+
+.character-detail__info {
+  flex: 1;
+}
+
+.character-detail__name {
+  font-size: $font-size-2xl; // Reducir tamaño para optimizar espacio
+  font-weight: $font-weight-bold;
+  margin-bottom: $spacing-md; // Reducir margen
+  background: linear-gradient(135deg, $rm-primary 0%, $rm-secondary 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 0.9375rem rgba(0, 212, 170, 0.5);
+  line-height: 1.2; // Mejorar line-height para compactar
+
+  @include mobile-only {
+    font-size: $font-size-xl; // Más pequeño en móvil
+    margin-bottom: $spacing-sm;
+    line-height: 1.1;
+  }
+
+  // Para dispositivos con poca altura
+  @media (max-height: 37.5rem) {
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-xs;
+
+    @include mobile-only {
+      font-size: $font-size-lg;
+    }
+  }
+}
+
+.character-detail__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: $font-size-base; // Reducir tamaño base
+  color: $rm-secondary;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg; // Aumentar más el gap para escritorio
+
+  @include mobile-only {
+    font-size: $font-size-sm; // Más pequeño en móvil
+    gap: $spacing-md; // Aumentar más el gap también en móvil
+  }
+
+  // Para dispositivos con poca altura, mantener un gap razonable
+  @media (max-height: 37.5rem) {
+    font-size: $font-size-sm;
+    gap: $spacing-sm; // Gap más pequeño pero aún respirable para poca altura
+
+    @include mobile-only {
+      font-size: $font-size-xs;
+      gap: $spacing-sm; // Mantener spacing decente en móvil con poca altura
+    }
+  }
+}
+
+.character-detail__list li {
+  margin-bottom: 0; // Remover margin, usar gap del parent
+  color: $text-white;
+  background: rgba(0, 212, 170, 0.08);
+  border-radius: $border-radius;
+  padding: $spacing-xs $spacing-sm; // Reducir padding
+  font-weight: $font-weight-medium;
+  box-shadow: 0 0.0625rem 0.25rem rgba(0, 212, 170, 0.08);
+  line-height: 1.3; // Compactar línea
+
+  @include mobile-only {
+    padding: 0.125rem $spacing-xs; // Mínimo padding en móvil
+    font-size: inherit; // Heredar del parent
+    line-height: 1.2;
+  }
+
+  // Para dispositivos con poca altura, minimizar aún más
+  @media (max-height: 37.5rem) {
+    padding: 0.0625rem $spacing-xs;
+    line-height: 1.2;
+
+    @include mobile-only {
+      padding: 0.0625rem 0.125rem;
+      line-height: 1.1;
+    }
+  }
+
+  strong {
+    color: $rm-primary;
+  }
+}

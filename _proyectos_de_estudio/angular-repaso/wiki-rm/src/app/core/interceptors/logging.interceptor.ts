@@ -10,6 +10,7 @@ import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { LoggerService } from '../services/logger.service';
+import { environment } from '../../../environments/environment';
 
 /**
  * Interceptor para logging de todas las peticiones HTTP.
@@ -34,10 +35,14 @@ export class LoggingInterceptor implements HttpInterceptor {
         next: event => {
           if (event instanceof HttpResponse) {
             const duration = Date.now() - startTime;
-            this.logger.httpResponse(req.method, req.url, event.status, duration, {
+            
+            // Solo incluir el body si está habilitado en environment
+            const responseData = environment.showResponseBody ? {
               body: event.body,
               headers: event.headers.keys().map(key => `${key}: ${event.headers.get(key)}`),
-            });
+            } : undefined;
+            
+            this.logger.httpResponse(req.method, req.url, event.status, duration, responseData);
           }
         },
         error: (error: HttpErrorResponse) => {

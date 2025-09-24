@@ -49,7 +49,7 @@
   }
 }
 
-@mixin grid-auto-fit($min-width: 250px, $gap: $spacing-lg) {
+@mixin grid-auto-fit($min-width: 15.625rem, $gap: $spacing-lg) {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax($min-width, 1fr));
   gap: $gap;
@@ -66,13 +66,13 @@
 }
 
 @mixin media-down($breakpoint) {
-  @media (max-width: #{$breakpoint - 1px}) {
+  @media (max-width: #{$breakpoint - 0.0625rem}) {
     @content;
   }
 }
 
 @mixin media-between($min, $max) {
-  @media (min-width: #{$min}) and (max-width: #{$max - 1px}) {
+  @media (min-width: #{$min}) and (max-width: #{$max - 0.0625rem}) {
     @content;
   }
 }
@@ -118,7 +118,7 @@
   }
 }
 
-@mixin hover-lift($translate: -2px, $shadow: $shadow-lg) {
+@mixin hover-lift($translate: -0.125rem, $shadow: $shadow-lg) {
   transition: all $transition-normal $easing-ease-out;
 
   &:hover {
@@ -151,7 +151,7 @@
   color: $text-white;
 
   &:hover:not(:disabled) {
-    transform: translateY(-1px);
+    transform: translateY(-0.0625rem);
     box-shadow: $shadow-md;
   }
 
@@ -223,7 +223,7 @@
   animation: fadeIn $duration $easing-ease-out forwards;
 }
 
-@mixin slide-up($duration: $transition-normal, $distance: 30px) {
+@mixin slide-up($duration: $transition-normal, $distance: 1.875rem) {
   opacity: 0;
   transform: translateY($distance);
   animation: slideUp $duration $easing-ease-out forwards;
@@ -241,9 +241,9 @@
 // ♿ ACCESIBILIDAD
 // ================================
 
-@mixin focus-outline($color: $primary-color, $offset: 2px) {
+@mixin focus-outline($color: $primary-color, $offset: 0.125rem) {
   &:focus {
-    outline: 2px solid $color;
+    outline: 0.125rem solid $color;
     outline-offset: $offset;
   }
 
@@ -254,10 +254,10 @@
 
 @mixin sr-only {
   position: absolute;
-  width: 1px;
-  height: 1px;
+  width: 0.0625rem;
+  height: 0.0625rem;
   padding: 0;
-  margin: -1px;
+  margin: -0.0625rem;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;

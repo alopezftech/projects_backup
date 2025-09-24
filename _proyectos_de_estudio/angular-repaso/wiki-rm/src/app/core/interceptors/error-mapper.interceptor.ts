@@ -131,6 +131,12 @@ export class ErrorMapperInterceptor implements HttpInterceptor {
     switch (httpError.status) {
       case 404:
         if (httpError.url?.includes('/character/')) {
+          // Si la URL contiene parámetros de búsqueda, es una búsqueda sin resultados
+          if (httpError.url.includes('name=')) {
+            const urlParams = new URLSearchParams(httpError.url.split('?')[1]);
+            const searchName = urlParams.get('name');
+            return `No se encontraron personajes que coincidan con "${searchName}". Verifica la ortografía o prueba con otro nombre.`;
+          }
           return 'Personaje no encontrado. Puede que no exista o el ID sea incorrecto.';
         }
         if (httpError.url?.includes('/episode/')) {
@@ -139,9 +145,11 @@ export class ErrorMapperInterceptor implements HttpInterceptor {
         if (httpError.url?.includes('/location/')) {
           return 'Ubicación no encontrada. Puede que no exista o el ID sea incorrecto.';
         }
-        return 'Recurso de Rick and Morty no encontrado.';
+        return 'No se encontraron resultados para los criterios de búsqueda.';
       case 500:
         return 'La API de Rick and Morty está experimentando problemas. Inténtalo más tarde.';
+      case 0:
+        return 'No se pudo conectar con la API de Rick and Morty. Verifica tu conexión a internet.';
       default:
         return this.getErrorMessage(httpError);
     }

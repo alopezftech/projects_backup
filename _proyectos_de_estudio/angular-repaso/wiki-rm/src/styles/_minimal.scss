@@ -42,20 +42,20 @@ $space-8: 2rem; // 32px
 
 // Border & Effects
 $radius: 0.5rem;
-$shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+$shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.1);
 
 // ================================
 // 🛠️ ESSENTIAL MIXINS
 // ================================
 
-@mixin container($max: 1200px) {
+@mixin container($max: 75rem) {
   max-width: $max;
   margin: 0 auto;
   padding: 0 $space-4;
 }
 
 @mixin mobile {
-  @media (max-width: 768px) {
+  @media (max-width: 48rem) {
     @content;
   }
 }
@@ -78,7 +78,9 @@ $shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
 
   &:hover {
-    transform: translateY(-1px);
+    &:hover {
+      transform: translateY(-0.0625rem);
+    }
   }
 }
 

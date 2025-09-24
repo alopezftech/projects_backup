@@ -1,4 +1,4 @@
-@if (open) {
+@if (open()) {
   <nav class="mobile-menu" role="navigation" aria-label="Menú móvil">
     <div class="mobile-menu-header">
       <div class="brand-icon">🛸</div>
@@ -8,7 +8,7 @@
       </div>
     </div>
     <ul class="mobile-nav-list">
-      @for (link of links; track link.path) {
+      @for (link of links(); track link.path) {
         <li class="mobile-nav-item">
           <a
             [routerLink]="link.path"

@@ -1,15 +1,15 @@
 // HOME COMPONENT STYLES - Rick & Morty Wiki
 // Usando variables centralizadas y mixins del proyecto
 
-@use "../../../styles/variables" as *;
-@use "../../../styles/mixins" as *;
+@use "../../../../styles/variables" as *;
+@use "../../../../styles/mixins" as *;
 
 // ================================
 // 🏠 CONTENEDOR PRINCIPAL
 // ================================
 
 .home-container {
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 4.375rem);
   background:
     radial-gradient(circle at 20% 80%, rgba(0, 212, 170, 0.1) 0%, transparent 50%),
     radial-gradient(circle at 80% 20%, rgba(100, 255, 218, 0.1) 0%, transparent 50%),
@@ -50,13 +50,13 @@
   margin-bottom: $spacing-3xl;
 
   .hero-content {
-    @include container(800px);
+    @include container(50rem);
   }
 
   .hero-icon {
     font-size: $font-size-5xl;
     margin-bottom: $spacing-lg;
-    filter: drop-shadow(0 0 20px rgba(0, 212, 170, 0.6));
+    filter: drop-shadow(0 0 1.25rem rgba(0, 212, 170, 0.6));
     animation: float 3s $easing-ease-in-out infinite;
   }
 
@@ -67,8 +67,8 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     text-shadow:
-      0 0 30px rgba(0, 212, 170, 0.8),
-      0 0 60px rgba(100, 255, 218, 0.4);
+      0 0 1.875rem rgba(0, 212, 170, 0.8),
+      0 0 3.75rem rgba(100, 255, 218, 0.4);
     margin-bottom: $spacing-lg;
     font-weight: $font-weight-extrabold;
     letter-spacing: -0.02em;
@@ -81,7 +81,7 @@
     color: $text-white;
     margin-bottom: $spacing-lg;
     font-weight: $font-weight-semibold;
-    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    text-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.5);
     opacity: 0.95;
   }
 
@@ -89,9 +89,9 @@
     font-size: $font-size-lg;
     color: rgba(255, 255, 255, 0.9);
     line-height: $line-height-relaxed;
-    max-width: 600px;
+    max-width: 37.5rem;
     margin: 0 auto;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0.0625rem 0.1875rem rgba(0, 0, 0, 0.3);
   }
 }
 
@@ -133,7 +133,7 @@
     max-width: $container-xl;
     margin: 0 auto;
 
-    @include grid-auto-fit(320px, $spacing-xl);
+    @include grid-auto-fit(20rem, $spacing-xl);
   }
 }
 
@@ -149,7 +149,7 @@
   position: relative;
   overflow: hidden;
 
-  @include hover-lift(-8px, 0 20px 40px rgba(0, 212, 170, 0.1));
+  @include hover-lift(-0.5rem, 0 1.25rem 2.5rem rgba(0, 212, 170, 0.1));
   @include slide-up(0.6s);
   @include stagger-animation(0.1s, 3);
 
@@ -159,7 +159,7 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 3px;
+    height: 0.1875rem;
     background: linear-gradient(90deg, $rm-primary, $rm-secondary, $rm-primary);
     opacity: 0;
     transition: opacity $transition-normal $easing-ease-out;
@@ -181,7 +181,7 @@
     font-size: $font-size-5xl;
     margin-bottom: $spacing-lg;
     transition: transform $transition-normal $easing-ease-out;
-    filter: drop-shadow(0 0 10px rgba(0, 212, 170, 0.3));
+    filter: drop-shadow(0 0 0.625rem rgba(0, 212, 170, 0.3));
   }
 
   .card-title {
@@ -192,7 +192,7 @@
     background-clip: text;
     margin-bottom: $spacing-md;
     font-weight: $font-weight-bold;
-    text-shadow: 0 0 15px rgba(0, 212, 170, 0.5);
+    text-shadow: 0 0 0.9375rem rgba(0, 212, 170, 0.5);
 
     @include heading-3;
   }
@@ -214,8 +214,8 @@
     background: rgba(100, 255, 218, 0.15);
     border-radius: $border-radius-full;
     display: inline-block;
-    border: 1px solid rgba(100, 255, 218, 0.3);
-    box-shadow: 0 0 10px rgba(100, 255, 218, 0.2);
+    border: 0.0625rem solid rgba(100, 255, 218, 0.3);
+    box-shadow: 0 0 0.625rem rgba(100, 255, 218, 0.2);
   }
 
   .card-link {
@@ -235,10 +235,10 @@
     &:hover {
       background: rgba(0, 212, 170, 0.1);
       border-color: $rm-primary;
-      transform: translateX(4px);
+      transform: translateX(0.25rem);
 
       .link-arrow {
-        transform: translateX(4px);
+        transform: translateX(0.25rem);
       }
     }
 
@@ -317,7 +317,7 @@
   .features-list {
     margin-top: $spacing-xl;
 
-    @include grid-auto-fit(280px, $spacing-lg);
+    @include grid-auto-fit(17.5rem, $spacing-lg);
 
     .feature-item {
       display: flex;
@@ -326,7 +326,7 @@
       padding: $spacing-md;
       background: rgba(0, 212, 170, 0.05);
       border-radius: $border-radius;
-      border-left: 3px solid $rm-primary;
+      border-left: 0.1875rem solid $rm-primary;
 
       .feature-icon {
         font-size: $font-size-2xl;
@@ -352,7 +352,7 @@
     transform: translateY(0px);
   }
   50% {
-    transform: translateY(-10px);
+    transform: translateY(-0.625rem);
   }
 }
 

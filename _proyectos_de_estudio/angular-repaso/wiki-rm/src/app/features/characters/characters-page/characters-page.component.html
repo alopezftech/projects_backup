@@ -1,0 +1,63 @@
+<section class="characters-page">
+  <header class="characters-header">
+    <h1>Personajes</h1>
+    <app-character-search (search)="onSearch($event)"></app-character-search>
+  </header>
+  <div class="characters-content">
+    @if (loading()) {
+      <div class="loading-message">
+        <div class="loading-spinner"></div>
+        <span>Cargando personajes...</span>
+      </div>
+    }
+    @if (error()) {
+      <div class="error-message">
+        <span>⚠️ {{ error() }}</span>
+        <button (click)="onRetry()" class="retry-btn">Reintentar</button>
+      </div>
+    }
+    @if (characters().length && !loading()) {
+      <div class="characters-list">
+        @for (character of characters(); track character.id) {
+          <div class="character-card" (click)="onSelectCharacter(character)">
+            <img [src]="character.image" [alt]="character.name" class="character-card__image" />
+            <div class="character-card__info">
+              <h2 class="character-card__name">{{ character.name }}</h2>
+              <span class="character-card__species">{{ character.species }}</span>
+            </div>
+          </div>
+        }
+      </div>
+      <div class="pagination-controls">
+        <button
+          class="pagination-btn"
+          [disabled]="currentPage() === 1 || loading()"
+          (click)="goToPage(currentPage() - 1)">
+          ← Anterior
+        </button>
+        <span class="pagination-info">
+          @if (loading()) {
+            Cargando...
+          } @else {
+            Página {{ currentPage() }} de {{ totalPages() }}
+          }
+        </span>
+        <button
+          class="pagination-btn"
+          [disabled]="currentPage() === totalPages() || loading()"
+          (click)="goToPage(currentPage() + 1)">
+          Siguiente →
+        </button>
+      </div>
+    }
+    <!-- Modal -->
+    @if (showModal() && selectedCharacter()) {
+      <div class="modal-overlay" (click)="closeModal()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+          <button class="modal-close" (click)="closeModal()">&times;</button>
+          <app-character-detail [character]="selectedCharacter()!"></app-character-detail>
+        </div>
+      </div>
+    }
+  </div>
+</section>

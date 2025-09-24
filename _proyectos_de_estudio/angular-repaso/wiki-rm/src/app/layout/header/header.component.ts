@@ -29,17 +29,17 @@ export class HeaderComponent {
       description: 'Página principal de la wiki',
     },
     {
-      path: '/personajes',
+      path: '/characters',
       label: 'Personajes',
       description: 'Explorar todos los personajes de Rick & Morty',
     },
     {
-      path: '/episodios',
+      path: '/episodes',
       label: 'Episodios',
       description: 'Ver todos los episodios de la serie',
     },
     {
-      path: '/curiosidades',
+      path: '/curiosities',
       label: 'Curiosidades',
       description: 'Datos curiosos y estadísticas',
     },
