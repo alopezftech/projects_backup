@@ -1,0 +1,553 @@
+// Usar variables globales
+@use '../../../styles.scss' as *;
+
+// Botón hamburguesa (ahora oculto, la funcionalidad está en el header)
+.hamburger-menu {
+  display: none;
+}
+
+// Overlay para mobile
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  @include tablet-and-mobile {
+    display: block;
+  }
+
+  &.active {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.sidebar {
+  width: $sidebar-width;
+  background-color: $background-light;
+  border-right: 1px solid $border-color;
+  position: fixed;
+  top: $header-height;
+  left: 0;
+  bottom: 0;
+  overflow-y: auto;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.1);
+  z-index: 100;
+  transition: transform 0.3s ease;
+
+  // Responsive behavior
+  @include tablet {
+    top: calc(#{$header-height} * #{$spacing-scale-tablet});
+  }
+
+  @include tablet-and-mobile {
+    width: 100vw;
+    transform: translateX(-100%);
+    z-index: 1000;
+    
+    &.mobile-open {
+      transform: translateX(0);
+    }
+  }
+
+  @include mobile {
+    top: calc(#{$header-height} * #{$spacing-scale-mobile});
+  }
+
+  // Botón cerrar (solo visible en mobile)
+  .close-menu {
+    display: none;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: $text-gray;
+    cursor: pointer;
+    z-index: 1001;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+
+    @include tablet-and-mobile {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @include tablet {
+      top: calc(20px * #{$spacing-scale-tablet});
+      right: calc(20px * #{$spacing-scale-tablet});
+      font-size: calc(2rem * #{$font-scale-tablet});
+      width: calc(40px * #{$spacing-scale-tablet});
+      height: calc(40px * #{$spacing-scale-tablet});
+    }
+
+    @include mobile {
+      top: calc(15px * #{$spacing-scale-mobile});
+      right: calc(15px * #{$spacing-scale-mobile});
+      font-size: calc(1.8rem * #{$font-scale-mobile});
+      width: calc(35px * #{$spacing-scale-mobile});
+      height: calc(35px * #{$spacing-scale-mobile});
+    }
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.1);
+      color: $danger-color;
+    }
+  }
+
+  &-content {
+    padding: 0;
+
+    @include tablet-and-mobile {
+      padding-top: 60px; // Espacio para el botón cerrar
+    }
+
+    @include tablet {
+      padding-top: calc(60px * #{$spacing-scale-tablet});
+    }
+
+    @include mobile {
+      padding-top: calc(50px * #{$spacing-scale-mobile});
+    }
+  }
+
+  &-header {
+    padding: 1.5rem 2rem;
+    background: $info-color;
+    color: $background-white;
+    border-bottom: 1px solid $info-color-dark;
+
+    @include tablet {
+      padding: calc(1.5rem * #{$spacing-scale-tablet}) calc(2rem * #{$spacing-scale-tablet});
+    }
+
+    @include mobile {
+      padding: calc(1.2rem * #{$spacing-scale-mobile}) calc(1.5rem * #{$spacing-scale-mobile});
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+
+      @include tablet {
+        font-size: calc(1.2rem * #{$font-scale-tablet});
+      }
+
+      @include mobile {
+        font-size: calc(1.1rem * #{$font-scale-mobile});
+      }
+    }
+  }
+
+  &-section {
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid $border-color-section;
+
+    @include tablet {
+      padding: calc(1.5rem * #{$spacing-scale-tablet}) calc(2rem * #{$spacing-scale-tablet});
+    }
+
+    @include mobile {
+      padding: calc(1.2rem * #{$spacing-scale-mobile}) calc(1.5rem * #{$spacing-scale-mobile});
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .section-title {
+      margin: 0 0 1rem 0;
+      font-size: 1rem;
+      font-weight: 600;
+      color: $text-dark;
+
+      @include tablet {
+        font-size: calc(1rem * #{$font-scale-tablet});
+        margin-bottom: calc(1rem * #{$spacing-scale-tablet});
+      }
+
+      @include mobile {
+        font-size: calc(0.95rem * #{$font-scale-mobile});
+        margin-bottom: calc(0.8rem * #{$spacing-scale-mobile});
+      }
+    }
+
+    .filter-group {
+      margin-bottom: 1.5rem;
+
+      @include tablet {
+        margin-bottom: calc(1.5rem * #{$spacing-scale-tablet});
+      }
+
+      @include mobile {
+        margin-bottom: calc(1.2rem * #{$spacing-scale-mobile});
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  // Page navigation
+  .page-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    @include tablet {
+      gap: calc(0.5rem * #{$spacing-scale-tablet});
+    }
+
+    @include mobile {
+      gap: calc(0.4rem * #{$spacing-scale-mobile});
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      border: 2px solid transparent;
+
+      @include tablet {
+        padding: calc(1rem * #{$spacing-scale-tablet});
+      }
+
+      @include mobile {
+        padding: calc(0.8rem * #{$spacing-scale-mobile});
+      }
+
+      &:hover {
+        background: $background-color;
+        transform: translateX(4px);
+      }
+
+      &.active {
+        background: $primary-color;
+        color: white;
+        border-color: $secondary-color-dark;
+        
+        .nav-icon, .nav-text, .nav-description {
+          color: white;
+        }
+      }
+
+      .nav-icon {
+        font-size: 1.2rem;
+        margin-right: 0.8rem;
+        min-width: 24px;
+        text-align: center;
+
+        @include tablet {
+          font-size: calc(1.2rem * #{$font-scale-tablet});
+          margin-right: calc(0.8rem * #{$spacing-scale-tablet});
+        }
+
+        @include mobile {
+          font-size: calc(1.1rem * #{$font-scale-mobile});
+          margin-right: calc(0.6rem * #{$spacing-scale-mobile});
+        }
+      }
+
+      .nav-text {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $text-dark;
+        margin-right: auto;
+
+        @include tablet {
+          font-size: calc(1rem * #{$font-scale-tablet});
+        }
+
+        @include mobile {
+          font-size: calc(0.9rem * #{$font-scale-mobile});
+        }
+      }
+
+      .nav-description {
+        font-size: 0.8rem;
+        color: $text-gray;
+        font-style: italic;
+
+        @include tablet {
+          font-size: calc(0.8rem * #{$font-scale-tablet});
+        }
+
+        @include mobile {
+          font-size: calc(0.75rem * #{$font-scale-mobile});
+        }
+      }
+    }
+  }
+}
+
+.filter-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  color: $primary-color;
+  font-size: 0.95rem;
+
+  @include tablet {
+    font-size: calc(0.95rem * #{$font-scale-tablet});
+    margin-bottom: calc(0.5rem * #{$spacing-scale-tablet});
+  }
+
+  @include mobile {
+    font-size: calc(0.9rem * #{$font-scale-mobile});
+    margin-bottom: calc(0.4rem * #{$spacing-scale-mobile});
+  }
+}
+
+.autocomplete-container {
+  position: relative;
+}
+
+.autocomplete-input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid $border-color;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background: $background-white;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  @include tablet {
+    padding: calc(0.75rem * #{$spacing-scale-tablet});
+    font-size: calc(0.95rem * #{$font-scale-tablet});
+  }
+
+  @include mobile {
+    padding: calc(0.6rem * #{$spacing-scale-mobile});
+    font-size: calc(0.9rem * #{$font-scale-mobile});
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $info-color;
+    box-shadow: 0 0 0 2px rgba($info-color, 0.25);
+  }
+
+  &::placeholder {
+    color: $text-muted-light;
+  }
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: $background-white;
+  border: 1px solid $border-color;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+
+  @include tablet {
+    max-height: calc(200px * #{$spacing-scale-tablet});
+  }
+
+  @include mobile {
+    max-height: calc(180px * #{$spacing-scale-mobile});
+  }
+}
+
+.autocomplete-option {
+  padding: 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px solid $border-color-light;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+
+  @include tablet {
+    padding: calc(0.75rem * #{$spacing-scale-tablet});
+    font-size: calc(0.9rem * #{$font-scale-tablet});
+  }
+
+  @include mobile {
+    padding: calc(0.6rem * #{$spacing-scale-mobile});
+    font-size: calc(0.85rem * #{$font-scale-mobile});
+  }
+
+  &:hover {
+    background-color: $info-color-light;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.search-button {
+  width: 100%;
+  padding: 0.75rem;
+  background: $success-color;
+  color: $background-white;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-bottom: 0.75rem;
+
+  @include tablet {
+    padding: calc(0.75rem * #{$spacing-scale-tablet});
+    font-size: calc(1rem * #{$font-scale-tablet});
+    margin-bottom: calc(0.75rem * #{$spacing-scale-tablet});
+  }
+
+  @include mobile {
+    padding: calc(0.6rem * #{$spacing-scale-mobile});
+    font-size: calc(0.95rem * #{$font-scale-mobile});
+    margin-bottom: calc(0.6rem * #{$spacing-scale-mobile});
+  }
+
+  &:hover:not(:disabled) {
+    background: $success-color-dark;
+  }
+
+  &:disabled {
+    background: $success-color-light;
+    cursor: not-allowed;
+  }
+}
+
+.clear-button {
+  width: 100%;
+  padding: 0.65rem;
+  background: $secondary-color-gray;
+  color: $background-white;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  @include tablet {
+    padding: calc(0.65rem * #{$spacing-scale-tablet});
+    font-size: calc(0.9rem * #{$font-scale-tablet});
+  }
+
+  @include mobile {
+    padding: calc(0.55rem * #{$spacing-scale-mobile});
+    font-size: calc(0.85rem * #{$font-scale-mobile});
+  }
+
+  &:hover {
+    background: $secondary-color-gray-dark;
+  }
+}
+
+// Estilos adicionales para los nuevos elementos
+.sidebar-description {
+  margin: 0.5rem 0 0 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+  line-height: 1.4;
+
+  @include tablet {
+    font-size: calc(0.9rem * #{$font-scale-tablet});
+    margin: calc(0.5rem * #{$spacing-scale-tablet}) 0 0 0;
+  }
+
+  @include mobile {
+    font-size: calc(0.85rem * #{$font-scale-mobile});
+    margin: calc(0.4rem * #{$spacing-scale-mobile}) 0 0 0;
+  }
+}
+
+// Filtros activos
+.active-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  @include tablet {
+    gap: calc(0.5rem * #{$spacing-scale-tablet});
+  }
+
+  @include mobile {
+    gap: calc(0.4rem * #{$spacing-scale-mobile});
+  }
+
+  .filter-tag {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: $info-color-light;
+    color: $info-color-dark;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    border: 1px solid $info-color;
+
+    @include tablet {
+      padding: calc(0.5rem * #{$spacing-scale-tablet}) calc(0.75rem * #{$spacing-scale-tablet});
+      font-size: calc(0.9rem * #{$font-scale-tablet});
+    }
+
+    @include mobile {
+      padding: calc(0.4rem * #{$spacing-scale-mobile}) calc(0.6rem * #{$spacing-scale-mobile});
+      font-size: calc(0.85rem * #{$font-scale-mobile});
+    }
+
+    .filter-remove {
+      background: none;
+      border: none;
+      color: $info-color-dark;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      padding: 0;
+      margin-left: 0.5rem;
+      width: 20px;
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      transition: all 0.2s;
+
+      @include tablet {
+        font-size: calc(1.2rem * #{$font-scale-tablet});
+        margin-left: calc(0.5rem * #{$spacing-scale-tablet});
+        width: calc(20px * #{$spacing-scale-tablet});
+        height: calc(20px * #{$spacing-scale-tablet});
+      }
+
+      @include mobile {
+        font-size: calc(1.1rem * #{$font-scale-mobile});
+        margin-left: calc(0.4rem * #{$spacing-scale-mobile});
+        width: calc(18px * #{$spacing-scale-mobile});
+        height: calc(18px * #{$spacing-scale-mobile});
+      }
+
+      &:hover {
+        background: $info-color;
+        color: $background-white;
+      }
+    }
+  }
+}

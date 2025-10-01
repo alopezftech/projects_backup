@@ -1,0 +1,77 @@
+<!-- Modal overlay -->
+<div 
+  *ngIf="image" 
+  class="modal-overlay" 
+  (click)="onOverlayClick($event)">
+  
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>{{ image.name }}</h3>
+      <button class="modal-close" (click)="onClose()">×</button>
+    </div>
+    
+    <!-- Main content layout -->
+    <div class="modal-main-content">
+      <div class="modal-image-section">
+        <img [src]="image.url" [alt]="image.name">
+      </div>
+      
+      <div class="modal-info-section">
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">📚 Facultad:</span>
+            <span class="value">{{ image.faculty }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">🎓 Tipo de Estudio:</span>
+            <span class="value">{{ image.studyType }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">{{ getStatusIcon() }} Estado:</span>
+            <span class="value status-badge" [class]="getStatusClass()">{{ image.Status }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">📏 Tamaño:</span>
+            <span class="value">{{ formatFileSize(image.size) }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">📅 Fecha:</span>
+            <span class="value">{{ formatDate(image.uploadDate) }}</span>
+          </div>
+        </div>
+        
+        <!-- Evaluation actions (only for audit page) -->
+        <div class="evaluation-actions" *ngIf="showEvaluationActions && !evaluationLoading">
+          <h4>🔍 Evaluar Imagen</h4>
+          <p>Selecciona el resultado de la auditoría:</p>
+          <div class="action-buttons">
+            <button 
+              class="btn-validate" 
+              (click)="onStatusUpdate('Válida')"
+              [disabled]="evaluationLoading">
+              ✅ Válida
+            </button>
+            <button 
+              class="btn-reject" 
+              (click)="onStatusUpdate('Rechazada')"
+              [disabled]="evaluationLoading">
+              ❌ Rechazada
+            </button>
+            <button 
+              class="btn-keep-pending" 
+              (click)="onStatusUpdate('Pendiente')"
+              [disabled]="evaluationLoading">
+              ⏳ Pendiente
+            </button>
+          </div>
+        </div>
+
+        <!-- Loading during evaluation -->
+        <div class="evaluation-loading" *ngIf="evaluationLoading">
+          <div class="loading-spinner"></div>
+          <p>Actualizando estado...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

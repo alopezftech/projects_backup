@@ -1,0 +1,117 @@
+<!-- Botón hamburguesa solo visible en mobile -->
+<button 
+  class="hamburger-menu" 
+  (click)="toggleMobileMenu()"
+  [attr.aria-expanded]="isMobileMenuOpen"
+  aria-label="Abrir menú de filtros">
+  <span class="hamburger-icon">🔍</span>
+</button>
+
+<!-- Overlay para cerrar menú en mobile -->
+<div 
+  class="mobile-overlay" 
+  [class.active]="isMobileMenuOpen" 
+  (click)="closeMobileMenu()">
+</div>
+
+<aside class="sidebar" [class.mobile-open]="isMobileMenuOpen">
+  <!-- Botón cerrar solo visible en mobile -->
+  <button 
+    class="close-menu" 
+    (click)="closeMobileMenu()"
+    aria-label="Cerrar menú">
+    ×
+  </button>
+
+  <div class="sidebar-content">
+    <div class="sidebar-header">
+      <h3>🔍 Filtros de Búsqueda</h3>
+      <p class="sidebar-description">Busca imágenes por criterios específicos</p>
+    </div>
+
+    <!-- Filtros -->
+    <div class="sidebar-section">
+      <!-- Filtro de Facultades -->
+      <div class="filter-group">
+        <label for="facultad-filter" class="filter-label">📚 Facultad:</label>
+        <div class="autocomplete-container">
+          <input 
+            type="text" 
+            id="facultad-filter"
+            placeholder="Seleccionar facultad..."
+            [(ngModel)]="selectedFaculty"
+            (input)="filterFaculties($event)"
+            (focus)="showFacultyOptions = true"
+            (blur)="hideFacultyOptions()"
+            class="autocomplete-input"
+            autocomplete="off">
+          <div class="autocomplete-dropdown" *ngIf="showFacultyOptions && filteredFaculties.length > 0">
+            <div 
+              *ngFor="let faculty of filteredFaculties" 
+              class="autocomplete-option"
+              (mousedown)="selectFaculty(faculty)">
+              {{faculty}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtro de Tipos de Estudio -->
+      <div class="filter-group">
+        <label for="tipo-estudio-filter" class="filter-label">🎓 Tipo de Estudio:</label>
+        <div class="autocomplete-container">
+          <input 
+            type="text" 
+            id="tipo-estudio-filter"
+            placeholder="Seleccionar tipo de estudio..."
+            [(ngModel)]="selectedStudyType"
+            (input)="filterStudyTypes($event)"
+            (focus)="showStudyTypeOptions = true"
+            (blur)="hideStudyTypeOptions()"
+            class="autocomplete-input"
+            autocomplete="off">
+          <div class="autocomplete-dropdown" *ngIf="showStudyTypeOptions && filteredStudyTypes.length > 0">
+            <div 
+              *ngFor="let type of filteredStudyTypes" 
+              class="autocomplete-option"
+              (mousedown)="selectStudyType(type)">
+              {{type}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="sidebar-section">
+      <button 
+        class="search-button" 
+        (click)="applyFiltersAndClose()"
+        [disabled]="isLoading">
+        <span *ngIf="!isLoading">🔍 Buscar</span>
+        <span *ngIf="isLoading">⏳ Buscando...</span>
+      </button>
+      
+      <button 
+        class="clear-button" 
+        (click)="clearFilters()">
+        🗑️ Limpiar Filtros
+      </button>
+    </div>
+
+    <!-- Info sobre filtros activos -->
+    <div class="sidebar-section" *ngIf="selectedFaculty || selectedStudyType">
+      <h4 class="section-title">🏷️ Filtros Activos</h4>
+      <div class="active-filters">
+        <div class="filter-tag" *ngIf="selectedFaculty">
+          📚 {{ selectedFaculty }}
+          <button class="filter-remove" (click)="clearFaculty()">×</button>
+        </div>
+        <div class="filter-tag" *ngIf="selectedStudyType">
+          🎓 {{ selectedStudyType }}
+          <button class="filter-remove" (click)="clearStudyType()">×</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</aside>

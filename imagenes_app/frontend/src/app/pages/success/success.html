@@ -1,0 +1,32 @@
+<div class="success-page">
+  <div class="page-header">
+    <h1>✅ Imágenes Válidas</h1>
+    <p>Imágenes que han pasado la auditoría exitosamente</p>
+    <div class="page-actions">
+      <button 
+        class="btn btn-reload" 
+        (click)="onReload()" 
+        [disabled]="basePageService.loading"
+        title="Recargar todas las imágenes válidas desde el blob storage">
+        <span class="icon">🔄</span>
+        {{ basePageService.loading ? 'Cargando...' : 'Recargar' }}
+      </button>
+    </div>
+  </div>
+
+  <app-images-grid
+  [images]="filteredImages"
+    [loading]="basePageService.loading"
+    [error]="basePageService.error"
+    [searchPerformed]="basePageService.searchPerformed"
+    [activeFilters]="basePageService.activeFilters"
+    [pageType]="'success'"
+    (reload)="onReload()"
+    (imageClick)="onImageClick($event)">
+  </app-images-grid>
+
+  <app-image-modal
+    [image]="basePageService.enlargedImage"
+    (close)="onModalClose()">
+  </app-image-modal>
+</div>

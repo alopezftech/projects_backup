@@ -1,0 +1,320 @@
+# =============================================================================
+# ImagenesApp - Proyecto Angular + Node.js + Azure Blob Storage
+# =============================================================================
+
+# ===========================
+# ARCHIVOS DE SISTEMA
+# ===========================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
+
+# ===========================
+# NODE.JS Y NPM
+# ===========================
+# Dependencias
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Archivos de paquetes
+*.tgz
+*.tar.gz
+package-lock.json
+yarn.lock
+
+# Cachés
+.npm
+.yarn-integrity
+.pnp.*
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+
+# ===========================
+# ANGULAR (FRONTEND)
+# ===========================
+# Compilación Angular
+frontend/dist/
+frontend/frontend/dist/
+frontend/.angular/
+frontend/frontend/.angular/
+frontend/coverage/
+frontend/frontend/coverage/
+
+# Archivos temporales de Angular
+*.ngfactory.ts
+*.ngstyle.ts
+*.ngsummary.json
+*.shim.ts
+
+# Angular CLI cache
+.angular/cache/
+
+# ===========================
+# NODE.JS BACKEND
+# ===========================
+# Compilación TypeScript
+backend/dist/
+backend/build/
+backend/.tscache/
+
+# Logs del servidor
+backend/logs/
+*.log
+
+# ===========================
+# VARIABLES DE ENTORNO Y CONFIGURACIÓN
+# ===========================
+# Variables de entorno (IMPORTANTE: No subir credenciales)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+.env.production
+
+# Archivos de configuración local
+config/local.json
+config/development.json
+config/production.json
+
+# ===========================
+# AZURE Y CREDENCIALES
+# ===========================
+# Credenciales Azure
+azure-credentials.json
+service-principal.json
+*.pem
+*.key
+*.crt
+
+# Archivos de conexión
+connection-strings.json
+
+# ===========================
+# DATOS E IMÁGENES (CARPETA ESPECÍFICA DEL PROYECTO)
+# ===========================
+# Carpeta completa de push_imagenes con todas sus subcarpetas
+push_imagenes/
+# Alternativamente, si quieres ser más específico:
+# push_imagenes/imagenes/
+# push_imagenes/imagenes_normalizadas/
+# push_imagenes/*.txt
+# push_imagenes/*.py
+
+# Archivos de datos temporales
+data/
+temp/
+uploads/
+downloads/
+
+# ===========================
+# EDITORES E IDEs
+# ===========================
+# Visual Studio Code
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+.vscode/.ropeproject
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# JetBrains IDEs
+.idea/
+*.swp
+*.swo
+*~
+
+# Sublime Text
+*.sublime-workspace
+*.sublime-project
+
+# Vim
+*.swp
+*.swo
+*.tmp
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+
+# ===========================
+# COMPILACIÓN Y BUILD
+# ===========================
+# Archivos de compilación
+*.o
+*.so
+*.dylib
+*.dll
+*.exe
+
+# Archivos temporales de compilación
+.cache/
+.temp/
+.tmp/
+build/
+dist/
+out/
+
+# ===========================
+# TESTING
+# ===========================
+# Cobertura de pruebas
+coverage/
+*.coverage
+.nyc_output/
+.coverage
+htmlcov/
+
+# Archivos de pruebas
+test-results/
+junit.xml
+
+# ===========================
+# LOGS Y DEBUGGING
+# ===========================
+# Logs generales
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Debug files
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# ===========================
+# BASES DE DATOS LOCALES
+# ===========================
+# SQLite
+*.sqlite
+*.sqlite3
+*.db
+
+# ===========================
+# ARCHIVOS ESPECÍFICOS DEL PROYECTO
+# ===========================
+# Archivos de análisis específicos del proyecto
+*.analysis
+*.report
+audit-report.json
+
+# Archivos de configuración de Azure específicos
+azure-config.json
+blob-storage-config.json
+
+# ===========================
+# ARCHIVOS GRANDES Y BINARIOS
+# ===========================
+# Imágenes grandes (más de cierto tamaño)
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.bmp
+*.tiff
+*.svg
+# Si necesitas incluir algunas imágenes específicas, usa:
+# !src/assets/logo.png
+
+# Videos
+*.mp4
+*.avi
+*.mov
+*.wmv
+
+# Documentos
+*.pdf
+*.doc
+*.docx
+*.ppt
+*.pptx
+
+# ===========================
+# CONTENIDO TEMPORAL
+# ===========================
+# Archivos temporales del sistema
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+
+# Cachés varios
+.cache
+.parcel-cache
+.next
+.nuxt
+
+# ===========================
+# HERRAMIENTAS DE DESARROLLO
+# ===========================
+# ESLint
+.eslintcache
+
+# Prettier
+.prettierignore
+
+# TypeScript
+*.tsbuildinfo
+
+# Storybook
+.out
+.storybook-out
+
+# ===========================
+# CI/CD
+# ===========================
+# Archivos de CI/CD locales
+.github/workflows/secrets.yml
+.gitlab-ci-local.yml
+
+# ===========================
+# ESPECÍFICO PARA WINDOWS
+# ===========================
+# Windows thumbnail cache files
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
